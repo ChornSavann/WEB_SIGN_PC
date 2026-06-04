@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexGen PC | Premium Computer Sales</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="/CSS/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="alert alert-primary alert-dismissible fade show mb-0 text-center rounded-0 py-2 border-0 shadow-sm"
+        role="alert" style="background: linear-gradient(to right, #0d6efd, #0dcaf0); color: white;">
+        <i class="bi bi-lightning-charge-fill me-2"></i>
+        <strong>បញ្ចុះតម្លៃពិសេស!</strong> បញ្ចុះតម្លៃ ១៥% លើគ្រប់កុំព្យូទ័រ RTX 40-Series ទាំងអស់។ ប្រើកូដ៖
+        <strong>PC2026</strong>
+        <button type="button" class="btn-close py-2 btn-close-white shadow-none" data-bs-dismiss="alert"
+            aria-label="Close"></button>
+    </div>
+
+    <header class="sticky-header shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light py-3">
+            <div class="container">
+                <a class="navbar-brand fw-bold fs-3 text-primary d-flex align-items-center" href="#home">
+                    <i class="bi bi-cpu-fill me-2 fs-2"></i>NexGen PC
+                </a>
+
+                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#mainNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-semibold">
+                        <li class="nav-item"><a class="nav-link active text-primary" href="#home">ទំព័រដើម</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#products">ផលិតផល</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#category">ប្រភេទគ្រឿង</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">សេវាកម្ម</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">អំពីយើង</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">ទំនាក់ទំនង</a></li>
+                    </ul>
+
+                    <div class="d-flex align-items-center gap-3">
+                        <button class="btn btn-light btn-sm rounded-circle shadow-sm border" aria-label="Search">
+                            <i class="bi bi-search text-secondary"></i>
+                        </button>
+
+                        <button
+                            class="btn btn-outline-dark position-relative btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center"
+                            data-bs-toggle="offcanvas" data-bs-target="#cartDrawer">
+                            <i class="bi bi-cart3 me-1 fs-6"></i> កញ្ចប់ទំនិញ
+                            <span id="cartCount"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-white">
+                                2
+                            </span>
+                        </button>
+
+                        <div class="dropdown">
+                            <button
+                                class="btn btn-primary btn-sm rounded-pill px-3 dropdown-toggle shadow-sm d-flex align-items-center"
+                                type="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle me-1 fs-6"></i> គណនី
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 rounded-3">
+                                <li>
+                                    <a class="dropdown-item py-2" href="javascript:void(0)" onclick="simulateLogin()">
+                                        <i class="bi bi-box-arrow-in-right me-2 text-primary"></i>ចូលគណនី / ចុះឈ្មោះ
+                                    </a>
+                                </li>
+                                <hr class="dropdown-divider opacity-50">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2" href="javascript:void(0)" data-bs-toggle="modal"
+                                        data-bs-target="#profileModal">
+                                        <i class="bi bi-person me-2 text-secondary"></i>កម្រងព័ត៌មាន
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2" href="javascript:void(0)" data-bs-toggle="modal"
+                                        data-bs-target="#ordersModal">
+                                        <i class="bi bi-clock-history me-2 text-secondary"></i>ប្រវត្តិកុម្ម៉ង់
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- <section id="home" class="hero-section position-relative overflow-hidden"
+        style="background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1587831990711-23ca6441447b?q=80&w=2000') center/cover no-repeat; height: 75vh; display: flex; align-items: center;">
+        <div class="container text-center position-relative" style="z-index: 2;">
+            <div class="row justify-content-center">
+                <div class="col-lg-9" data-aos="zoom-in" data-aos-duration="1000">
+
+                    <span
+                        class="badge bg-primary bg-opacity-25 text-white px-3 py-2 mb-3 rounded-pill border border-primary border-opacity-50 tracking-wider"
+                        style="font-size: 0.8rem; letter-spacing: 1px;">
+                        <i class="bi bi-shield-shaded me-1"></i> កម្លាំងម៉ាស៊ីនខ្លាំងបំផុត
+                    </span>
+
+                    <h1 class="display-4 fw-bold mb-4 text-white" style="letter-spacing: -1px;">បង្កើត
+                        និងលេងហ្គេមដោយគ្មានដែនកំណត់</h1>
+
+                    <p class="lead mb-5 text-white-50 mx-auto" style="max-width: 700px; font-weight: 400;">
+                        រៀបចំដំឡើងកុំព្យូទ័រ (Custom PC) ម៉ាស៊ីនធ្វើការងារធ្ងន់ៗ និងគ្រឿងបន្លាស់កម្រិតខ្ពស់
+                        ដែលត្រូវទៅនឹងថវិកា និងតម្រូវការរបស់អ្នក។
+                    </p>
+
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <a href="#products"
+                            class="btn btn-primary btn-lg px-4 rounded-pill fw-bold shadow-lg d-flex align-items-center">
+                            ទិញកុំព្យូទ័រ Desktop <i class="bi bi-arrow-right-short fs-4 ms-1"></i>
+                        </a>
+                        <a href="#category"
+                            class="btn btn-outline-light btn-lg px-4 rounded-pill fw-bold d-flex align-items-center">
+                            មើលគ្រឿងបន្លាស់
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section> -->
+<section id="home" class="hero-section position-relative overflow-hidden" style="height: 75vh; display: flex; align-items: center;">
+    
+    <video autoplay loop muted playsinline class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: 0;">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-futuristic-computer-system-screen-flashing-lights-31777-preview.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.90)); z-index: 1;"></div>
+
+    <div class="container text-center position-relative" style="z-index: 2;">
+        <div class="row justify-content-center">
+            <div class="col-lg-9" data-aos="zoom-in" data-aos-duration="1000">
+
+                <span class="badge bg-primary bg-opacity-25 text-white px-3 py-2 mb-3 rounded-pill border border-primary border-opacity-50 tracking-wider"
+                    style="font-size: 0.8rem; letter-spacing: 1px;">
+                    <i class="bi bi-shield-shaded me-1"></i> កម្លាំងម៉ាស៊ីនខ្លាំងបំផុត
+                </span>
+
+                <h1 class="display-4 fw-bold mb-4 text-white" style="letter-spacing: -1px;">បង្កើត និងលេងហ្គេមដោយគ្មានដែនកំណត់</h1>
+
+                <p class="lead mb-5 text-white-50 mx-auto" style="max-width: 700px; font-weight: 400;">
+                    រៀបចំដំឡើងកុំព្យូទ័រ (Custom PC) ម៉ាស៊ីនធ្វើការងារធ្ងន់ៗ និងគ្រឿងបន្លាស់កម្រិតខ្ពស់ ដែលត្រូវទៅនឹងថវិកា និងតម្រូវការរបស់អ្នក។
+                </p>
+
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="#products" class="btn btn-primary btn-lg px-4 rounded-pill fw-bold shadow-lg d-flex align-items-center">
+                        ទិញកុំព្យូទ័រ Desktop <i class="bi bi-arrow-right-short fs-4 ms-1"></i>
+                    </a>
+                    <a href="#category" class="btn btn-outline-light btn-lg px-4 rounded-pill fw-bold d-flex align-items-center">
+                        មើលគ្រឿងបន្លាស់
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+    <section id="category" class="py-5 bg-white">
+        <div class="container py-4" data-aos="fade-up">
+
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-6 text-center">
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-3">Shop by
+                        Needs</span>
+                    <h2 class="display-6 fw-bold text-dark mb-3">Browse by Category</h2>
+                    <p class="text-secondary">Find the right components for your dream PC setup.</p>
+
+                    <button class="btn btn-outline-primary rounded-pill btn-sm mt-3 px-3"
+                        onclick="filterProducts('all')">
+                        Show All Products
+                    </button>
+                </div>
+            </div>
+
+            <div class="row g-4 text-center" id="category-list"></div>
+
+        </div>
+    </section>
+<section id="brands" class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-4" data-aos="fade-up">
+            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-2">Our Partners</span>
+            <h3 class="fw-bold text-dark">គាំទ្រដោយម៉ាកល្បីៗ (Top Brands)</h3>
+            <p class="text-secondary small">ស្វែងរកគ្រឿងបន្លាស់តាមម៉ាកសញ្ញាដែលអ្នកទុកចិត្ត</p>
+        </div>
+
+        <div class="row g-3 justify-content-center align-items-center" id="brand-container">
+            </div>
+    </div>
+</section>
+    <section id="products" class="py-5 bg-light bg-opacity-50">
+        <div class="container py-4">
+
+            <div class="row justify-content-center mb-5" data-aos="fade-down">
+                <div class="col-lg-6 text-center">
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-3">Top
+                        Picks</span>
+                    <h2 class="display-6 fw-bold text-dark mb-3">Trending Hardware</h2>
+                    <p class="text-secondary">Explore our most popular and high-performance PC components handpicked for
+                        you.</p>
+                </div>
+            </div>
+        <div class="container mb-4">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="input-group shadow-sm rounded-pill overflow-hidden bg-white">
+                            <span class="input-group-text border-0 bg-white ps-3">
+                                <i class="bi bi-search text-primary"></i>
+                            </span>
+                            <input type="text" id="searchInput" class="form-control border-0 py-2 shadow-none" 
+                                placeholder="ស្វែងរកគ្រឿងបន្លាស់កុំព្យូទ័រ (ឧទាហរណ៍៖ RAM, GPU)..." onkeyup="liveSearch()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4" id="product-container">
+            </div>
+
+        </div>
+    </section>
+
+    <section id="services" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5" data-aos="fade-down">Our Services</h2>
+            <div class="row g-4 text-center">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-4 h-100 bg-white shadow-sm rounded-4">
+                        <i class="bi bi-tools fs-1 text-primary"></i>
+                        <h4 class="fw-bold mt-3">Custom PC Building</h4>
+                        <p class="text-muted">Pick your parts and let our master technicians build it with precision
+                            cable management.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-4 h-100 bg-white shadow-sm rounded-4">
+                        <i class="bi bi-shield-check fs-1 text-primary"></i>
+                        <h4 class="fw-bold mt-3">Warranty & Diagnostics</h4>
+                        <p class="text-muted">Up to 3-year warranty programs and physical PC repairs and diagnostics.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-4 h-100 bg-white shadow-sm rounded-4">
+                        <i class="bi bi-truck fs-1 text-primary"></i>
+                        <h4 class="fw-bold mt-3">Express Shipping</h4>
+                        <p class="text-muted">Secured rigid packing with foam insulation and nationwide insured
+                            delivery.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="about" class="py-5 bg-white overflow-hidden">
+        <div class="container py-4">
+
+            <div class="row align-items-center g-5 mb-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800"
+                            alt="Our Team" class="img-fluid rounded-4 shadow-lg">
+                        <div class="position-absolute bottom-0 end-0 bg-primary text-white p-4 rounded-4 shadow-lg m-3 d-none d-md-block"
+                            data-aos="zoom-in" data-aos-delay="300">
+                            <h3 class="fw-bold mb-0">6+ Years</h3>
+                            <p class="mb-0 small">Of Premium Computer Crafting</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" data-aos="fade-left">
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-3">Our
+                        Story</span>
+                    <h2 class="display-6 fw-bold text-dark mb-4">Building the Future of Computing, One Rig at a Time.
+                    </h2>
+                    <p class="text-secondary mb-4">
+                        Founded in 2020, <strong>NexGen PC</strong> started with a simple mission: to build
+                        high-performance computers accessible to gamers, creators, and professionals. We believe
+                        hardware shouldn't be a bottleneck to your creativity or gaming skills.
+                    </p>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill text-primary fs-4 me-2"></i>
+                                <span class="fw-semibold text-dark">Genuine Parts Only</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill text-primary fs-4 me-2"></i>
+                                <span class="fw-semibold text-dark">Expert Technicians</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill text-primary fs-4 me-2"></i>
+                                <span class="fw-semibold text-dark">Lifetime Tech Support</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill text-primary fs-4 me-2"></i>
+                                <span class="fw-semibold text-dark">Precision Cable Management</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="btn btn-primary rounded-pill px-4 py-2 shadow-sm">
+                        Contact Our Experts <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <hr class="my-5 opacity-25">
+
+            <div class="row g-4 text-center">
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-4 bg-light rounded-4 h-100">
+                        <h2 class="display-5 fw-bold text-primary mb-1">5K+</h2>
+                        <p class="text-secondary mb-0 fw-semibold">PCs Built</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-4 bg-light rounded-4 h-100">
+                        <h2 class="display-5 fw-bold text-primary mb-1">98%</h2>
+                        <p class="text-secondary mb-0 fw-semibold">Positive Reviews</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-4 bg-light rounded-4 h-100">
+                        <h2 class="display-5 fw-bold text-primary mb-1">24/7</h2>
+                        <p class="text-secondary mb-0 fw-semibold">Customer Support</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="p-4 bg-light rounded-4 h-100">
+                        <h2 class="display-5 fw-bold text-primary mb-1">15+</h2>
+                        <p class="text-secondary mb-0 fw-semibold">Brand Partnerships</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section id="contact" class="py-5 bg-light overflow-hidden">
+        <div class="container py-4">
+
+            <div class="row justify-content-center mb-5" data-aos="fade-down">
+                <div class="col-lg-6 text-center">
+                    <span
+                        class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-3">ទំនាក់ទំនងយើងខ្ញុំ</span>
+                    <h2 class="display-6 fw-bold text-dark mb-3">ទាក់ទងមកកាន់ NexGen PC</h2>
+                    <p class="text-secondary">មានចម្ងល់អំពីការដំឡើងកុំព្យូទ័រ ការធានា ឬការតាមដានការបញ្ជាទិញ?
+                        ក្រុមការងារបច្ចេកទេសយើងខ្ញុំរីករាយនឹងជួយអ្នក។</p>
+                </div>
+            </div>
+
+            <div class="row g-4 align-items-stretch">
+
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="bg-white p-4 rounded-4 shadow-sm h-100 d-flex flex-column justify-content-between">
+
+                        <div>
+                            <h4 class="fw-bold text-dark mb-4"><i
+                                    class="bi bi-geo-alt-fill me-2 text-primary"></i>ទីតាំងហាងយើងខ្ញុំ</h4>
+
+                            <div class="ratio ratio-16x9 mb-4 rounded-3 overflow-hidden shadow-sm border">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3909.110292150374!2d104.91266017507661!3d11.543950288655827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31095126f5950d65%3A0x647bf3a6fb983e29!2sBuild%20Bright%20University!5e0!3m2!1sen!2skh!4v1711438901234!5m2!1sen!2skh"
+                                    style="border:0;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-4">
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center p-3 bg-light rounded-3 h-100">
+                                    <div class="bg-primary bg-opacity-10 text-primary p-2 rounded-3 me-2">
+                                        <i class="bi bi-telephone-fill fs-5"></i>
+                                    </div>
+                                    <div>
+                                        <small class="text-secondary d-block"
+                                            style="font-size: 0.75rem;">ទូរស័ព្ទ</small>
+                                        <span class="fw-bold text-dark small">+855 12 345 678</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center p-3 bg-light rounded-3 h-100">
+                                    <div class="bg-success bg-opacity-10 text-success p-2 rounded-3 me-2">
+                                        <i class="bi bi-envelope-at-fill fs-5"></i>
+                                    </div>
+                                    <div>
+                                        <small class="text-secondary d-block" style="font-size: 0.75rem;">អ៊ីមែល</small>
+                                        <span class="fw-bold text-dark small text-truncate d-inline-block"
+                                            style="max-width: 140px;">support@nexgen.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-3">
+                            <a href="#"
+                                class="btn btn-outline-primary rounded-circle p-2 d-flex align-items-center justify-content-center shadow-sm"
+                                style="width: 42px; height: 42px;">
+                                <i class="bi bi-facebook fs-5"></i>
+                            </a>
+                            <a href="#"
+                                class="btn btn-outline-danger rounded-circle p-2 d-flex align-items-center justify-content-center shadow-sm"
+                                style="width: 42px; height: 42px;">
+                                <i class="bi bi-instagram fs-5"></i>
+                            </a>
+                            <a href="https://t.me/yourusername" target="_blank"
+                                class="btn btn-outline-info rounded-circle p-2 d-flex align-items-center justify-content-center shadow-sm"
+                                style="width: 42px; height: 42px;">
+                                <i class="bi bi-telegram fs-5"></i>
+                            </a>
+                            <a href="#"
+                                class="btn btn-outline-dark rounded-circle p-2 d-flex align-items-center justify-content-center shadow-sm"
+                                style="width: 42px; height: 42px;">
+                                <i class="bi bi-tiktok fs-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div
+                        class="bg-white p-4 p-md-5 rounded-4 shadow-sm h-100 d-flex flex-column justify-content-center">
+                        <h4 class="fw-bold text-dark mb-4"><i
+                                class="bi bi-envelope-paper-fill me-2 text-primary"></i>ផ្ញើសារមកកាន់យើងខ្ញុំ</h4>
+
+                        <form id="contactForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="userName"
+                                        class="form-label text-secondary small fw-semibold">ឈ្មោះរបស់អ្នក</label>
+                                    <input type="text" class="form-control rounded-3 py-2 bg-light border-0"
+                                        id="userName" placeholder="សុវណ្ណ" required style="box-shadow: none;">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="userEmail"
+                                        class="form-label text-secondary small fw-semibold">អុីមែលរបស់អ្នក</label>
+                                    <input type="email" class="form-control rounded-3 py-2 bg-light border-0"
+                                        id="userEmail" placeholder="example@gmail.com" required
+                                        style="box-shadow: none;">
+                                </div>
+                                <div class="col-12">
+                                    <label for="subject"
+                                        class="form-label text-secondary small fw-semibold">ប្រធានបទ</label>
+                                    <input type="text" class="form-control rounded-3 py-2 bg-light border-0"
+                                        id="subject" placeholder="សួរតម្លៃសេវាកម្ម, បញ្ហាបច្ចេកទេស..." required
+                                        style="box-shadow: none;">
+                                </div>
+                                <div class="col-12">
+                                    <label for="message"
+                                        class="form-label text-secondary small fw-semibold">សាររបស់អ្នក</label>
+                                    <textarea class="form-control rounded-3 bg-light border-0" id="message" rows="5"
+                                        placeholder="សរសេរសាររបស់អ្នកនៅទីនេះ..." required
+                                        style="box-shadow: none;"></textarea>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit"
+                                        class="btn btn-primary rounded-pill px-4 py-2 shadow-sm w-100 fw-bold d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-send-fill me-2"></i> បញ្ជូនសារ
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <div class="top-marquee-bar bg-primary text-white py-2">
+        <div class="marquee-content d-flex align-items-center">
+            <span>🎉 មហាប្រូម៉ូសិនពិសេស! បញ្ចុះតម្លៃរហូតដល់ 30% លើគ្រឿងបន្លាស់កុំព្យូទ័រគ្រប់ប្រភេទ និងដឹកជញ្ជូនឥតគិតថ្លៃក្នុងភ្នំពេញ! 🚚 </span>
+            <span>🎉 មហាប្រូម៉ូសិនពិសេស! បញ្ចុះតម្លៃរហូតដល់ 30% លើគ្រឿងបន្លាស់កុំព្យូទ័រគ្រប់ប្រភេទ និងដឹកជញ្ជូនឥតគិតថ្លៃក្នុងភ្នំពេញ! 🚚 </span>
+        </div>
+    </div>
+    <footer id="contact" class="bg-dark text-white py-5" data-aos="fade-up">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="fw-bold text-primary"><i class="bi bi-cpu-fill me-2"></i>NexGen PC</h5>
+                    <p class="text-secondary">Premium computers and hardware sales since 2020.</p>
+                </div>
+                <div class="col-md-4 mb-4" id="about">
+                    <h5>About Us</h5>
+                    <ul class="list-unstyled text-secondary">
+                        <li>Our Mission</li>
+                        <li>Careers</li>
+                        <li>FAQ</li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Connect With Us</h5>
+                    <p class="text-secondary mb-1">Email: support@nexgenpc.com</p>
+                    <p class="text-secondary">Phone: (555) 123-4567</p>
+                    <div class="d-flex gap-3 fs-5">
+                        <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <p class="text-center text-secondary mb-0">&copy; 2026 NexGen PC Sales. All rights reserved.</p>
+        </div>
+    </footer>
+    <!-- Modal -->
+   <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+
+            <div class="modal-body p-0">
+                <div class="row g-0 h-100">
+
+                    <div class="col-md-6 d-flex align-items-center justify-content-center bg-light position-relative">
+                        <div class="w-100 h-100 position-relative" style="min-height: 420px;">
+                            <img id="modalImage" src="" class="w-100 h-100" style="object-fit: cover;" alt="Product">
+                            
+                            <span id="modalCategory" class="position-absolute top-0 start-0 m-3 badge bg-primary text-white px-3 py-2 rounded-pill shadow-sm">
+                                Components
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 d-flex flex-column justify-content-between p-4 p-lg-5 bg-white position-relative">
+
+                        <button type="button" class="btn-close position-absolute top-0 end-0 m-3 shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                        <div>
+                            <span class="text-primary text-uppercase fw-bold mb-1 d-block" style="font-size: 0.75rem; letter-spacing: 1px;">
+                                Premium Hardware
+                            </span>
+                            <h3 id="modalName" class="fw-bold text-dark mb-2">Dual-Chamber PC Case</h3>
+                            
+                            <div class="d-flex align-items-baseline mb-3">
+                                <span class="fs-3 fw-bold text-primary" id="modalPrice">$140</span>
+                                <span class="text-secondary text-decoration-line-through ms-2 small" id="modalOldPrice">$180</span>
+                            </div>
+
+                            <div class="p-3 bg-light rounded-3 mb-4">
+                                <h6 class="fw-bold text-dark mb-2" style="font-size: 0.9rem;">
+                                    <i class="bi bi-cpu-fill me-2 text-primary"></i>លក្ខណៈបច្ចេកទេស (Specs):
+                                </h6>
+                                <p id="modalSpecs" class="text-secondary small mb-0">Tempered Glass, Panoramic View</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="mb-4">
+                                <label class="form-label text-secondary small fw-bold">ចំនួន (Quantity)</label>
+                                <div class="input-group rounded-3 overflow-hidden shadow-sm" style="max-width: 140px; height: 40px;">
+                                    <button class="btn btn-outline-secondary border-0 bg-light" onclick="changeQty(-1)">
+                                        <i class="bi bi-dash-lg"></i>
+                                    </button>
+                                    <input type="number" id="modalQty" class="form-control text-center fw-bold border-0 bg-light" value="1" min="1" readonly style="box-shadow: none;">
+                                    <button class="btn btn-outline-secondary border-0 bg-light" onclick="changeQty(1)">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 pt-3 border-top">
+                                <button class="btn btn-primary rounded-pill w-100 py-2 fw-bold shadow-sm d-flex align-items-center justify-content-center" id="modalAddToCartBtn">
+                                    <i class="bi bi-cart-plus-fill me-2 fs-5"></i> បន្ថែមទៅក្នុងកាត
+                                </button>
+                                <button class="btn btn-outline-danger rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 45px; height: 45px; min-width: 45px;">
+                                    <i class="bi bi-heart-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <!-- cart -->
+    <div class="offcanvas offcanvas-end border-0 shadow-lg" tabindex="-1" id="cartDrawer"
+        aria-labelledby="cartDrawerLabel" style="width: 420px;">
+
+        <div class="offcanvas-header bg-white border-bottom py-3 px-4">
+            <h5 class="offcanvas-title fw-bold text-dark d-flex align-items-center" id="cartDrawerLabel">
+                <i class="bi bi-cart3 me-2 fs-4 text-primary"></i>Your Shopping Cart
+            </h5>
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body p-0 d-flex flex-column h-100 bg-light bg-opacity-50">
+
+            <div class="flex-grow-1 overflow-auto p-4" id="cartItemsList">
+
+                <div class="d-flex align-items-center mb-3 p-3 bg-white rounded-4 shadow-sm border-0 position-relative">
+                    <div class="bg-light rounded-3 p-1 d-flex align-items-center justify-content-center"
+                        style="width: 75px; height: 75px;">
+                        <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?w=100" class="rounded-3"
+                            style="width: 100%; height: 100%; object-fit: cover;" alt="PC">
+                    </div>
+
+                    <div class="flex-grow-1 ms-3">
+                        <h6 class="fw-bold mb-1 text-dark text-truncate" style="max-width: 170px; font-size: 0.9rem;">
+                            Apex Raptor Gaming PC</h6>
+                        <span class="text-primary fw-bold">$1,899</span>
+
+                        <div class="input-group input-group-sm mt-2" style="max-width: 100px;">
+                            <button class="btn btn-light border py-0 px-2" onclick="changeCartQty(1, -1)"><i
+                                    class="bi bi-dash"></i></button>
+                            <input type="number"
+                                class="form-control form-control-sm text-center fw-bold px-0 border-start-0 border-end-0"
+                                value="1" readonly>
+                            <button class="btn btn-light border py-0 px-2" onclick="changeCartQty(1, 1)"><i
+                                    class="bi bi-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-link text-danger p-0 position-absolute top-0 end-0 mt-3 me-3"
+                        onclick="removeFromCart(1)" style="font-size: 1.1rem;">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                </div>
+
+                <div class="d-flex align-items-center mb-3 p-3 bg-white rounded-4 shadow-sm border-0 position-relative">
+                    <div class="bg-light rounded-3 p-1 d-flex align-items-center justify-content-center"
+                        style="width: 75px; height: 75px;">
+                        <img src="https://images.unsplash.com/photo-1547082299-de196ea013d6?w=100" class="rounded-3"
+                            style="width: 100%; height: 100%; object-fit: cover;" alt="Monitor">
+                    </div>
+
+                    <div class="flex-grow-1 ms-3">
+                        <h6 class="fw-bold mb-1 text-dark text-truncate" style="max-width: 170px; font-size: 0.9rem;">
+                            Ultra-Wide 4K Monitor</h6>
+                        <span class="text-primary fw-bold">$450</span>
+
+                        <div class="input-group input-group-sm mt-2" style="max-width: 100px;">
+                            <button class="btn btn-light border py-0 px-2" onclick="changeCartQty(2, -1)"><i
+                                    class="bi bi-dash"></i></button>
+                            <input type="number"
+                                class="form-control form-control-sm text-center fw-bold px-0 border-start-0 border-end-0"
+                                value="1" readonly>
+                            <button class="btn btn-light border py-0 px-2" onclick="changeCartQty(2, 1)"><i
+                                    class="bi bi-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-link text-danger p-0 position-absolute top-0 end-0 mt-3 me-3"
+                        onclick="removeFromCart(2)" style="font-size: 1.1rem;">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="p-4 bg-white border-top mt-auto shadow-lg"
+                style="border-top-left-radius: 1.5rem; border-top-right-radius: 1.5rem;">
+
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-secondary fw-semibold small">Subtotal:</span>
+                    <span class="fw-bold text-dark" id="subtotalPrice">$2,349.00</span>
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="text-secondary fw-semibold small">Discount (15%):</span>
+                    <span class="fw-bold text-danger" id="discountPrice">-$352.35</span>
+                </div>
+
+                <div class="bg-light p-3 rounded-3 d-flex justify-content-between align-items-center mb-4">
+                    <span class="fw-bold text-dark">Total Payable:</span>
+                    <span class="fs-4 fw-extrabold text-primary" id="totalPrice"
+                        style="font-weight: 800;">$1,996.65</span>
+                </div>
+
+                <button onclick="saveCartAndCheckout()"
+                    class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm d-flex align-items-center justify-content-center">
+                    Proceed to Checkout <i class="bi bi-arrow-right-short fs-4 ms-1"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <!-- profil -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg">
+
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body pt-0 px-4 px-md-5 pb-5">
+                    <div class="text-center mb-4">
+                        <div class="position-relative d-inline-block">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"
+                                class="rounded-circle shadow-sm border border-3 border-white"
+                                style="width: 100px; height: 100px; object-fit: cover;" alt="User">
+                            <button
+                                class="btn btn-sm btn-primary rounded-circle position-absolute bottom-0 end-0 shadow-sm"
+                                style="width: 32px; height: 32px; padding: 0;">
+                                <i class="bi bi-camera-fill"></i>
+                            </button>
+                        </div>
+                        <h5 class="fw-bold text-dark mt-3 mb-1" id="profFullName">ចន សុវណ្ណ</h5>
+                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-pill">អតិថិជន
+                            Premium</span>
+                    </div>
+
+                    <form id="profileForm" class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-semibold">នាមត្រកូល</label>
+                            <input type="text" id="profLastName" class="form-control rounded-3 py-2" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-semibold">នាមខ្លួន</label>
+                            <input type="text" id="profFirstName" class="form-control rounded-3 py-2" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label text-secondary small fw-semibold">អុីមែល</label>
+                            <input type="email" id="profEmail" class="form-control rounded-3 py-2" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label text-secondary small fw-semibold">លេខទូរស័ព្ទ</label>
+                            <input type="tel" id="profPhone" class="form-control rounded-3 py-2"
+                                placeholder="បញ្ចូលលេខទូរស័ព្ទ">
+                        </div>
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-primary rounded-pill w-100 py-2 fw-bold shadow-sm">
+                                <i class="bi bi-check2-circle me-1"></i> រក្សាទុកការកែប្រែ
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <!-- Order History -->
+    <div class="modal fade" id="ordersModal" tabindex="-1" aria-labelledby="ordersModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+
+                <div class="modal-header border-0 bg-light py-3 px-4">
+                    <h5 class="modal-title fw-bold text-dark d-flex align-items-center" id="ordersModalLabel">
+                        <i class="bi bi-clock-history me-2 text-primary fs-4"></i>ប្រវត្តិនៃការកុម្ម៉ង់ទិញ
+                    </h5>
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-4" id="orderHistoryList"
+                    style="max-height: 500px; overflow-y: auto; background-color: #f8fafc;">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Information order -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+
+                <div class="modal-header border-0 bg-light py-3 px-4">
+                    <h5 class="modal-title fw-bold text-dark d-flex align-items-center" id="orderDetailsModalLabel">
+                        <i class="bi bi-receipt-cutoff me-2 text-primary fs-4"></i>ព័ត៌មានលម្អិតនៃវិក្កយបត្រ
+                    </h5>
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-4">
+
+                    <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-3 mb-4">
+                        <div>
+                            <span class="text-secondary small d-block">ស្ថានភាពកម្ម៉ង់៖</span>
+                            <span class="fw-bold text-success" id="detailStatus">ជោគជ័យ</span>
+                        </div>
+                        <div>
+                            <span class="text-secondary small d-block">លេខវិក្កយបត្រ៖</span>
+                            <span class="fw-bold text-dark" id="detailInvoiceId">#NXG-7842</span>
+                        </div>
+                    </div>
+
+                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-cart-check me-2 text-primary"></i>ទំនិញដែលបានទិញ
+                    </h6>
+                    <div id="orderDetailItems" class="mb-4" style="max-height: 200px; overflow-y: auto;">
+                    </div>
+
+                    <hr class="my-3 border-light opacity-50">
+
+                    <div class="p-3 bg-light rounded-3 mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-secondary small">តម្លៃសរុបដើម៖</span>
+                            <span class="fw-bold text-dark" id="detailSubtotal">$0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-secondary small">បញ្ចុះតម្លៃ (15%)៖</span>
+                            <span class="fw-bold text-danger" id="detailDiscount">-$0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-secondary small">ថ្លៃដឹកជញ្ជូន៖</span>
+                            <span class="fw-bold text-success">ឥតគិតថ្លៃ</span>
+                        </div>
+                        <hr class="my-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-dark">សរុបត្រូវបង់៖</span>
+                            <span class="fs-4 fw-bold text-primary" id="detailTotal">$0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <span class="text-secondary small d-block mb-1">បង់ប្រាក់តាម៖</span>
+                            <span class="fw-bold text-dark d-flex align-items-center" id="detailPayment">
+                                <i class="bi bi-cash-coin me-1 text-success"></i> នៅពេលទទួលទំនិញ
+                            </span>
+                        </div>
+                        <div class="col-6">
+                            <span class="text-secondary small d-block mb-1">អាសយដ្ឋានដឹកជញ្ជូន៖</span>
+                            <span class="fw-bold text-dark small" id="detailAddress">សាកលវិទ្យាល័យ បៀលប្រាយ
+                                ភ្នំពេញ</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Register Account -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body pt-0 px-4 px-md-5 pb-5">
+
+                    <div id="loginSection">
+                        <div class="text-center mb-4">
+                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                                style="width: 60px; height: 60px;">
+                                <i class="bi bi-shield-lock-fill fs-3"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark mb-1">ចូលប្រើប្រាស់គណនី</h4>
+                            <p class="text-secondary small">សូមបំពេញព័ត៌មានខាងក្រោមដើម្បីចូលប្រើប្រាស់</p>
+                        </div>
+
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label class="form-label text-secondary small fw-semibold">អុីមែលរបស់អ្នក</label>
+                                <input type="email" id="loginEmail"
+                                    class="form-control rounded-3 py-2 bg-light border-0"
+                                    placeholder="example@gmail.com" required style="box-shadow: none;">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-secondary small fw-semibold">ពាក្យសម្ងាត់</label>
+                                <div class="input-group">
+                                    <input type="password" id="loginPassword"
+                                        class="form-control rounded-3 py-2 bg-light border-0"
+                                        placeholder="បញ្ចូលពាក្យសម្ងាត់" required style="box-shadow: none;">
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input shadow-none" type="checkbox" id="rememberMe">
+                                    <label class="form-check-label text-secondary small"
+                                        for="rememberMe">ចងចាំខ្ញុំ</label>
+                                </div>
+                                <a href="#" class="text-primary small text-decoration-none">ភ្លេចពាក្យសម្ងាត់?</a>
+                            </div>
+                            <button type="submit"
+                                class="btn btn-primary rounded-pill w-100 py-2 fw-bold shadow-sm mb-3">
+                                <i class="bi bi-box-arrow-in-right me-1"></i> ចូលគណនី
+                            </button>
+                        </form>
+
+                        <div class="text-center">
+                            <span class="text-secondary small">មិនទាន់មានគណនីមែនទេ? </span>
+                            <a href="javascript:void(0)" onclick="toggleAuth('register')"
+                                class="text-primary small fw-bold text-decoration-none">ចុះឈ្មោះនៅទីនេះ</a>
+                        </div>
+                    </div>
+
+                    <div id="registerSection" style="display: none;">
+                        <div class="text-center mb-4">
+                            <div class="bg-success bg-opacity-10 text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                                style="width: 60px; height: 60px;">
+                                <i class="bi bi-person-plus-fill fs-3"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark mb-1">ចុះឈ្មោះគណនីថ្មី</h4>
+                            <p class="text-secondary small">បង្កើតគណនីដើម្បីទទួលបានអត្ថប្រយោជន៍ជាច្រើន</p>
+                        </div>
+
+                        <form id="registerForm">
+                            <div class="row g-2 mb-3">
+                                <div class="col-6">
+                                    <label class="form-label text-secondary small fw-semibold">នាមត្រកូល</label>
+                                    <input type="text" id="regLastName"
+                                        class="form-control rounded-3 py-2 bg-light border-0" placeholder="ចន" required
+                                        style="box-shadow: none;">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label text-secondary small fw-semibold">នាមខ្លួន</label>
+                                    <input type="text" id="regFirstName"
+                                        class="form-control rounded-3 py-2 bg-light border-0" placeholder="សុវណ្ណ"
+                                        required style="box-shadow: none;">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-secondary small fw-semibold">អុីមែល</label>
+                                <input type="email" id="regEmail" class="form-control rounded-3 py-2 bg-light border-0"
+                                    placeholder="example@gmail.com" required style="box-shadow: none;">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-secondary small fw-semibold">ពាក្យសម្ងាត់</label>
+                                <input type="password" id="regPassword"
+                                    class="form-control rounded-3 py-2 bg-light border-0" placeholder="យ៉ាងតិច ៨ ខ្ទង់"
+                                    required style="box-shadow: none;">
+                            </div>
+                            <button type="submit"
+                                class="btn btn-success rounded-pill w-100 py-2 fw-bold shadow-sm mb-3">
+                                <i class="bi bi-check2-circle me-1"></i> បង្កើតគណនី
+                            </button>
+                        </form>
+
+                        <div class="text-center">
+                            <span class="text-secondary small">មានគណនីរួចហើយមែនទេ? </span>
+                            <a href="javascript:void(0)" onclick="toggleAuth('login')"
+                                class="text-primary small fw-bold text-decoration-none">ចូលគណនីនៅទីនេះ</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/JS/index.js"></script>
+</body>
+
+</html>

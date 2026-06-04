@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | NexGen PC</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <style>
+      :root {
+        --primary-color: #0d6efd;
+        --bg-light: #f8fafc;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background-color: var(--bg-light);
+      }
+
+      .checkout-card {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      }
+
+      .payment-option {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid #e2e8f0;
+      }
+
+      .payment-option:hover {
+        border-color: var(--primary-color);
+        background-color: rgba(13, 110, 253, 0.02);
+      }
+
+      /* បន្លិចពណ៌នៅពេល User Check រើសយក Payment មួយណា */
+      .form-check-input:checked + .payment-option {
+        border-color: var(--primary-color);
+        background-color: rgba(13, 110, 253, 0.05);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="bg-white shadow-sm py-3 mb-5">
+      <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand fw-bold fs-3 text-primary" href="index.html">
+          <i class="bi bi-cpu-fill me-2"></i>NexGen PC
+        </a>
+        <a
+          href="index.html"
+          class="btn btn-outline-secondary rounded-pill btn-sm"
+        >
+          <i class="bi bi-arrow-left me-1"></i> Back to Shop
+        </a>
+      </div>
+    </header>
+
+    <div class="container mb-5">
+      <div class="row g-4">
+        <div class="col-lg-7" data-aos="fade-right">
+          <div class="card checkout-card p-4 p-md-5 mb-4 bg-white">
+            <h4 class="fw-bold text-dark mb-4">
+              <i class="bi bi-truck me-2 text-primary"></i>Shipping Information
+            </h4>
+
+            <form id="shippingForm" class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label text-secondary small fw-semibold"
+                  >First Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control rounded-3 py-2"
+                  required
+                  placeholder="Chorn"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label text-secondary small fw-semibold"
+                  >Last Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control rounded-3 py-2"
+                  required
+                  placeholder="Savann"
+                />
+              </div>
+              <div class="col-12">
+                <label class="form-label text-secondary small fw-semibold"
+                  >Phone Number</label
+                >
+                <input
+                  type="tel"
+                  class="form-control rounded-3 py-2"
+                  required
+                  placeholder="012 345 678"
+                />
+              </div>
+              <div class="col-12">
+                <label class="form-label text-secondary small fw-semibold"
+                  >Delivery Address (Phnom Penh / Province)</label
+                >
+                <textarea
+                  class="form-control rounded-3"
+                  rows="3"
+                  required
+                  placeholder="House No, Street, Sangkat, Khan..."
+                ></textarea>
+              </div>
+            </form>
+          </div>
+
+          <div class="card checkout-card p-4 p-md-5 bg-white">
+            <h4 class="fw-bold text-dark mb-4">
+              <i class="bi bi-credit-card-2-back me-2 text-primary"></i>Payment
+              Method
+            </h4>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <input
+                  class="form-check-input d-none"
+                  type="radio"
+                  name="paymentMethod"
+                  id="payCash"
+                  checked
+                />
+                <label
+                  class="form-check-label d-block payment-option p-3 rounded-4 h-100"
+                  for="payCash"
+                >
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-cash-coin fs-3 text-success me-2"></i>
+                    <h6 class="fw-bold mb-0 text-dark">Cash On Delivery</h6>
+                  </div>
+                  <span class="small text-secondary"
+                    >Pay when you receive the PC components.</span
+                  >
+                </label>
+              </div>
+
+              <div class="col-md-6">
+                <input
+                  class="form-check-input d-none"
+                  type="radio"
+                  name="paymentMethod"
+                  id="payABA"
+                />
+                <label
+                  class="form-check-label d-block payment-option p-3 rounded-4 h-100"
+                  for="payABA"
+                >
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-bank fs-3 text-primary me-2"></i>
+                    <h6 class="fw-bold mb-0 text-dark">ABA Bank Transfer</h6>
+                  </div>
+                  <span class="small text-secondary"
+                    >Pay instantly using ABA Mobile App.</span
+                  >
+                </label>
+              </div>
+
+              <div class="col-md-12">
+                <input
+                  class="form-check-input d-none"
+                  type="radio"
+                  name="paymentMethod"
+                  id="payKHQR"
+                />
+                <label
+                  class="form-check-label d-block payment-option p-3 rounded-4 h-100"
+                  for="payKHQR"
+                >
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-qr-code-scan fs-3 text-danger me-2"></i>
+                    <h6 class="fw-bold mb-0 text-dark">Scan Bakong KHQR</h6>
+                  </div>
+                  <span class="small text-secondary"
+                    >Scan to pay from any Cambodian Bank mobile app.</span
+                  >
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5" data-aos="fade-left">
+          <div
+            class="card checkout-card p-4 p-md-4 bg-white h-100 d-flex flex-column justify-content-between"
+          >
+            <div>
+              <h5 class="fw-bold text-dark mb-4">
+                <i class="bi bi-receipt me-2 text-primary"></i
+                >សេចក្តីសង្ខេបការបញ្ជាទិញ
+              </h5>
+
+              <div
+                class="mb-3 overflow-auto"
+                id="checkoutItemsList"
+                style="max-height: 280px"
+              >
+                <div class="text-center text-muted py-4">
+                  <div
+                    class="spinner-border spinner-border-sm text-primary me-2"
+                    role="status"
+                  ></div>
+                  កំពុងទាញយកទិន្នន័យ...
+                </div>
+              </div>
+
+              <hr class="my-3 border-light opacity-50" />
+
+              <div class="mb-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-secondary small"
+                    >តម្លៃសរុបដើម (Subtotal):</span
+                  >
+                  <span id="summarySubtotal" class="fw-bold text-dark small"
+                    >$0.00</span
+                  >
+                </div>
+
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-secondary small"
+                    >បញ្ចុះតម្លៃ (Discount):</span
+                  >
+                  <span id="summaryDiscount" class="fw-bold text-danger small"
+                    >-$0.00</span
+                  >
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+                  <span class="text-secondary small"
+                    >សេវាដឹកជញ្ជូន (Shipping):</span
+                  >
+                  <span class="fw-bold text-success small"
+                    >ឥតគិតថ្លៃ (Free)</span
+                  >
+                </div>
+
+                <div
+                  class="bg-light p-3 rounded-3 d-flex justify-content-between align-items-center"
+                >
+                  <span class="fw-bold text-dark">ទឹកប្រាក់សរុបចុងក្រោយ:</span>
+                  <span id="summaryTotal" class="fs-4 fw-bold text-primary"
+                    >$0.00</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="card border-0 rounded-3 bg-light mb-3">
+                <div class="card-body p-3">
+                  <h6 class="fw-bold text-dark mb-2" style="font-size: 0.85rem">
+                    <i class="bi bi-tag-fill me-1 text-primary"></i>
+                    វាយកូដបញ្ចុះតម្លៃ (Promo Code)
+                  </h6>
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      id="couponInput"
+                      class="form-control bg-white border-0 shadow-none py-2"
+                      placeholder="ឧទាហរណ៍: NEXGEN2026"
+                      style="font-size: 0.85rem"
+                    />
+                    <button
+                      class="btn btn-primary px-3 fw-bold"
+                      onclick="applyCoupon()"
+                      style="font-size: 0.85rem"
+                    >
+                      ប្រើប្រាស់
+                    </button>
+                  </div>
+                  <small
+                    id="couponMessage"
+                    class="d-block mt-1"
+                    style="font-size: 0.75rem"
+                  ></small>
+                </div>
+              </div>
+
+              <button
+                class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm d-flex align-items-center justify-content-center"
+                onclick="confirmOrder()"
+              >
+                <i class="bi bi-shield-lock-fill me-2 fs-5"></i>
+                បញ្ជាក់ការបញ្ជាទិញឥឡូវនេះ
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- <script>
+      AOS.init({ duration: 800, once: true });
+
+      const DISCOUNT_RATE = 0; // អត្រាបញ្ចុះតម្លៃ ១៥%
+      let checkoutCart = [];
+
+      // ១. មុខងារទាញយកទិន្នន័យពី LocalStorage មកបង្ហាញ
+      function loadCheckoutData() {
+        const storedCart = localStorage.getItem("checkoutCart");
+
+        if (storedCart) {
+          checkoutCart = JSON.parse(storedCart);
+        } else {
+          alert("មិនទាន់មានទំនិញក្នុង Cart ឡើយ!");
+          window.location.href = "index.html";
+          return;
+        }
+
+        const itemsListEl = document.getElementById("checkoutItemsList");
+        itemsListEl.innerHTML = "";
+
+        let subtotal = 0;
+
+        // Render បញ្ជីទំនិញពិតប្រាកដ
+        checkoutCart.forEach((item) => {
+          subtotal += item.price * item.qty;
+
+          itemsListEl.innerHTML += `
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-light rounded-3 p-1" style="width: 50px; height: 50px;">
+                            <img src="${item.img}" class="img-fluid rounded-3 h-100 w-100" style="object-fit: cover;" alt="${item.name}">
+                        </div>
+                        <div class="ms-2">
+                            <h6 class="fw-bold mb-0 small text-truncate" style="max-width: 150px;">${item.name}</h6>
+                            <small class="text-secondary">Qty: ${item.qty}</small>
+                        </div>
+                    </div>
+                    <span class="fw-bold text-dark small">$${(item.price * item.qty).toFixed(2)}</span>
+                </div>
+            `;
+        });
+
+        let discount = subtotal * DISCOUNT_RATE;
+        let total = subtotal - discount;
+
+        // --- 🛠️ ដំណោះស្រាយ៖ ប្រើ getElementById ធានាមិន Error ទៀតឡើយ ---
+        const subtotalEl = document.getElementById("summarySubtotal");
+        const discountEl = document.getElementById("summaryDiscount");
+        const totalEl = document.getElementById("summaryTotal");
+
+        if (subtotalEl) subtotalEl.innerText = `$${subtotal.toFixed(2)}`;
+        if (discountEl) discountEl.innerText = `-$${discount.toFixed(2)}`;
+        if (totalEl) totalEl.innerText = `$${total.toFixed(2)}`;
+      }
+
+      // ២. មុខងារបញ្ជាក់ការកម្ម៉ង់ទិញ
+      function confirmOrder() {
+        const form = document.getElementById("shippingForm");
+        if (form.checkValidity()) {
+          // --- 🆕 បន្ថែមការរក្សាទុកប្រវត្តិការទិញ ---
+          const pastOrders =
+            JSON.parse(localStorage.getItem("pastOrders")) || [];
+          const currentCart =
+            JSON.parse(localStorage.getItem("checkoutCart")) || [];
+
+          let subtotal = 0;
+          currentCart.forEach((item) => (subtotal += item.price * item.qty));
+          let discount = subtotal * 0; // ១៥%
+          let total = subtotal - discount;
+
+          const newOrder = {
+            invoiceId: "NXG-" + Math.floor(1000 + Math.random() * 9000), // បង្កើត ID ចៃដន្យ
+            date: new Date().toLocaleDateString("km-KH"), // កាលបរិច្ឆេទខ្មែរ
+            status: "ជោគជ័យ",
+            itemsCount: currentCart.length,
+            subtotal: subtotal,
+            discount: discount,
+            total: total,
+            items: currentCart, // រក្សាទុកទំនិញទាំងអស់ក្នុង Order នេះ
+          };
+
+          pastOrders.unshift(newOrder); // ដាក់ទិន្នន័យថ្មីនៅខាងលើគេ
+          localStorage.setItem("pastOrders", JSON.stringify(pastOrders));
+          // ----------------------------------------
+
+          alert(
+            "🎉 Order Successful! Thank you for purchasing from NexGen PC.",
+          );
+          localStorage.removeItem("checkoutCart"); // សម្អាតកាតចាស់ចេញ
+          window.location.href = "index.html";
+        } else {
+          form.reportValidity();
+        }
+      }
+
+      // ដំណើរការ Render ពេលទំព័រ Checkout ត្រូវបាន Load
+      document.addEventListener("DOMContentLoaded", loadCheckoutData);
+      // បង្កើតបញ្ជីកូដបញ្ចុះតម្លៃ (អាចកែប្រែភាគរយតាមចិត្ត)
+const validCoupons = {
+    "NEXGEN2026": 0.15, // បញ្ចុះ ១៥%
+    "BBUSTUDENT": 0.20, // បញ្ចុះ ២០%
+    "PCBUILD": 10.00    // បញ្ចុះ $10 ថេរ
+};
+
+function applyCoupon() {
+    const couponInput = document.getElementById('couponInput').value.trim().toUpperCase();
+    const msg = document.getElementById('couponMessage');
+    
+    // ចាប់យកតម្លៃសរុបដើម (Subtotal)
+    let subtotal = getSubtotalFromCart(); // បងត្រូវមាន function គណនាលុយសរុបក្នុង Cart
+    let discount = 0;
+
+    if (validCoupons[couponInput]) {
+        const discountValue = validCoupons[couponInput];
+
+        if (discountValue < 1) {
+            // បើជាភាគរយ (ឧទាហរណ៍ 0.15)
+            discount = subtotal * discountValue;
+            msg.innerHTML = `<span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> អបអរសាទរ! បញ្ចុះតម្លៃបាន ${(discountValue * 100)}%</span>`;
+        } else {
+            // បើជាដុល្លារថេរ (ឧទាហរណ៍ $10)
+            discount = discountValue;
+            msg.innerHTML = `<span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> អបអរសាទរ! បញ្ចុះតម្លៃបាន $${discountValue}</span>`;
+        }
+
+        // រក្សាទុកតម្លៃ Discount ចូល LocalStorage ដើម្បីយកទៅដកលុយសរុបពិតប្រាកដ
+        localStorage.setItem('checkoutDiscount', discount);
+        
+        // Update តារាងសរុបលុយនៅលើ UI
+        updateOrderSummaryUI(); 
+
+    } else {
+        msg.innerHTML = `<span class="text-danger"><i class="bi bi-x-circle-fill me-1"></i> កូដមិនត្រឹមត្រូវ ឬហួសសុពលភាព!</span>`;
+        localStorage.setItem('checkoutDiscount', 0);
+        updateOrderSummaryUI();
+    }
+}
+    </script> -->
+    <script>
+      AOS.init({ duration: 800, once: true });
+
+      let checkoutCart = [];
+      let currentDiscount = 0; // រក្សាទុកតម្លៃ Discount បច្ចុប្បន្ន
+
+      const validCoupons = {
+        NEXGEN2026: 0.15, // បញ្ចុះ ១៥%
+        BBUSTUDENT: 0.2, // បញ្ចុះ ២០%
+        PCBUILD: 10.0, // បញ្ចុះ $10 ថេរ
+      };
+
+      // ១. ទាញយកតម្លៃ Subtotal ចេញពី Cart
+      function getSubtotalFromCart() {
+        let subtotal = 0;
+        checkoutCart.forEach((item) => {
+          subtotal += item.price * item.qty;
+        });
+        return subtotal;
+      }
+
+      // ២. ធ្វើបច្ចុប្បន្នភាពតម្លៃលើអេក្រង់ (UI)
+      function updateOrderSummaryUI() {
+        const subtotal = getSubtotalFromCart();
+        const total = subtotal - currentDiscount;
+
+        const subtotalEl = document.getElementById("summarySubtotal");
+        const discountEl = document.getElementById("summaryDiscount");
+        const totalEl = document.getElementById("summaryTotal");
+
+        if (subtotalEl) subtotalEl.innerText = `$${subtotal.toFixed(2)}`;
+        if (discountEl)
+          discountEl.innerText = `-$${currentDiscount.toFixed(2)}`;
+        if (totalEl) totalEl.innerText = `$${total.toFixed(2)}`;
+      }
+
+      // ៣. មុខងារទាញយកទិន្នន័យពី LocalStorage មកបង្ហាញដំបូង
+      function loadCheckoutData() {
+        const storedCart = localStorage.getItem("checkoutCart");
+
+        if (storedCart) {
+          checkoutCart = JSON.parse(storedCart);
+        } else {
+          alert("មិនទាន់មានទំនិញក្នុង Cart ឡើយ!");
+          window.location.href = "index.html";
+          return;
+        }
+
+        const itemsListEl = document.getElementById("checkoutItemsList");
+        itemsListEl.innerHTML = "";
+
+        // គូសទំនិញពិតប្រាកដ
+        checkoutCart.forEach((item) => {
+          itemsListEl.innerHTML += `
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <div class="d-flex align-items-center">
+            <div class="bg-light rounded-3 p-1" style="width: 50px; height: 50px;">
+              <img src="${item.img}" class="img-fluid rounded-3 h-100 w-100" style="object-fit: cover;" alt="${item.name}">
+            </div>
+            <div class="ms-2">
+              <h6 class="fw-bold mb-0 small text-truncate" style="max-width: 150px;">${item.name}</h6>
+              <small class="text-secondary">Qty: ${item.qty}</small>
+            </div>
+          </div>
+          <span class="fw-bold text-dark small">$${(item.price * item.qty).toFixed(2)}</span>
+        </div>
+      `;
+        });
+
+        updateOrderSummaryUI(); // បង្ហាញតម្លៃលើ UI
+      }
+
+      // ៤. មុខងារបញ្ជូនកូដបញ្ចុះតម្លៃ
+      function applyCoupon() {
+        const couponInput = document
+          .getElementById("couponInput")
+          .value.trim()
+          .toUpperCase();
+        const msg = document.getElementById("couponMessage");
+
+        const subtotal = getSubtotalFromCart();
+
+        if (subtotal === 0) {
+          msg.innerHTML = `<span class="text-danger">គ្មានទំនិញត្រូវគណនា!</span>`;
+          return;
+        }
+
+        if (validCoupons[couponInput]) {
+          const discountValue = validCoupons[couponInput];
+
+          if (discountValue < 1) {
+            // បើជាភាគរយ (ឧទាហរណ៍ 0.15)
+            currentDiscount = subtotal * discountValue;
+            msg.innerHTML = `<span class="text-success small"><i class="bi bi-check-circle-fill me-1"></i> អបអរសាទរ! បញ្ចុះតម្លៃបាន ${discountValue * 100}%</span>`;
+          } else {
+            // បើជាដុល្លារថេរ (ឧទាហរណ៍ $10)
+            currentDiscount = discountValue;
+            msg.innerHTML = `<span class="text-success small"><i class="bi bi-check-circle-fill me-1"></i> អបអរសាទរ! បញ្ចុះតម្លៃបាន $${discountValue}</span>`;
+          }
+        } else {
+          currentDiscount = 0;
+          msg.innerHTML = `<span class="text-danger small"><i class="bi bi-x-circle-fill me-1"></i> កូដមិនត្រឹមត្រូវ ឬហួសសុពលភាព!</span>`;
+        }
+
+        updateOrderSummaryUI(); // Update UI ភ្លាមៗ
+      }
+
+      // ៥. មុខងារបញ្ជាក់ការកម្ម៉ង់ទិញ និងរក្សាទុកក្នុងប្រវត្តិ
+      function confirmOrder() {
+        const form = document.getElementById("shippingForm");
+
+        if (form.checkValidity()) {
+          const pastOrders =
+            JSON.parse(localStorage.getItem("pastOrders")) || [];
+          const subtotal = getSubtotalFromCart();
+          const total = subtotal - currentDiscount;
+
+          // ចាប់យករូបរាងទូទាត់លុយ
+          let paymentMethod = "Cash On Delivery";
+          if (document.getElementById("payABA").checked)
+            paymentMethod = "ABA Bank Transfer";
+          if (document.getElementById("payKHQR").checked)
+            paymentMethod = "Scan Bakong KHQR";
+
+          const newOrder = {
+            invoiceId: "NXG-" + Math.floor(1000 + Math.random() * 9000),
+            date: new Date().toLocaleDateString("km-KH"),
+            status: "ជោគជ័យ",
+            paymentMethod: paymentMethod,
+            itemsCount: checkoutCart.length,
+            subtotal: subtotal,
+            discount: currentDiscount,
+            total: total,
+            items: checkoutCart,
+          };
+
+          pastOrders.unshift(newOrder); // រុញចូលប្រវត្តិទិញ
+          localStorage.setItem("pastOrders", JSON.stringify(pastOrders));
+
+          alert(
+            "🎉 Order Successful! Thank you for purchasing from NexGen PC.",
+          );
+          localStorage.removeItem("checkoutCart"); // លុប Cart ចេញ
+          window.location.href = "index.html";
+        } else {
+          form.reportValidity();
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", loadCheckoutData);
+    </script>
+  </body>
+</html>
