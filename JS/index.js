@@ -948,12 +948,32 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ទាញយកសារឆ្លើយតបពី Admin ដោយមានប្រព័ន្ធការពារ Conflict
-    // ទាញយកសារឆ្លើយតបពី Admin ដោយកំណត់គម្លាតពេលយូរជាងមុន និងសុវត្ថិភាព
+    let channel = new BroadcastChannel('telegram_chat_channel');
+    let isMasterTab = false;
+
+    // ពិនិត្យមើលថាតើ Tab នេះជា Tab មេ (Master) ដែរឬទេ
+    // ដើម្បីធានាថាមានតែ Tab មួយគត់ដែលហៅ getUpdates ទៅ Telegram API
+    navigator.locks.request('telegram_polling_lock', { ifAvailable: true }, async lock => {
+        if (lock) {
+            isMasterTab = true;
+            // Tab នេះជា Tab មេ ធ្វើការឆែក Telegram រៀងរាល់ ៤ វិនាទី
+            setInterval(fetchTelegramUpdates, 4000);
+        }
+    });
+
+    // ទទួលសារពី Tab មេ មកបង្ហាញលើ Tab ផ្សេងទៀត
+    channel.onmessage = function (event) {
+        if (event.data.type === 'NEW_ADMIN_MESSAGE') {
+            appendMessage(event.data.text, 'bot');
+        }
+    };
+
+    // ទាញយកសារឆ្លើយតបពី Admin (មានតែ Tab មេទេដែលរត់មុខងារនេះ)
     async function fetchTelegramUpdates() {
-        if (isFetching || !userName) return;
+        if (isFetching || !userName || !isMasterTab) return;
         isFetching = true;
 
-        const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=${lastUpdateId + 1}&timeout=5`;
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=${lastUpdateId + 1}&timeout=3`;
 
         try {
             const response = await fetch(url);
@@ -963,9 +983,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 data.result.forEach(update => {
                     lastUpdateId = update.update_id;
 
-                    if (!isInitialized) {
-                        return;
-                    }
+                    if (!isInitialized) return;
 
                     if (update.message && update.message.chat.id.toString() === CHAT_ID.toString()) {
                         if (update.message.from.is_bot) return;
@@ -975,7 +993,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (update.message.reply_to_message) {
                                 const repliedText = update.message.reply_to_message.text;
                                 if (repliedText && repliedText.includes(userName)) {
+                                    // បង្ហាញក្នុង Tab នេះ និងផ្ញើសញ្ញាប្រាប់ Tab ផ្សេងទៀត
                                     appendMessage(messageText, 'bot');
+                                    channel.postMessage({ type: 'NEW_ADMIN_MESSAGE', text: messageText });
                                 }
                             }
                         }
@@ -986,14 +1006,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 isInitialized = true;
             }
         } catch (error) {
-            // បញ្ឈប់ការបញ្ចេញ Error 409 រញ៉េរញ៉ៃលើ Console
+            // រំលង Error 409 
         } finally {
             isFetching = false;
         }
     }
-
-    // បន្ថែមគម្លាតពេលរៀងរាល់ ៦ វិនាទីម្ដង (ដើម្បីកុំឱ្យ Telegram API បដិសេធសំណើ 409 Conflict)
-    setInterval(fetchTelegramUpdates, 6000);
 
     // ឆែកមើលសារឆ្លើយតបរៀងរាល់ ៤ វិនាទីម្ដង
     setInterval(fetchTelegramUpdates, 4000);
@@ -1024,7 +1041,7 @@ document.addEventListener('DOMContentLoaded', function () {
         chatBody.scrollTop = chatBody.scrollHeight;
     }
 
-    
 
-    
+
+
 });
