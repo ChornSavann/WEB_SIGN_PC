@@ -876,6 +876,8 @@ document.addEventListener("DOMContentLoaded", function () {
     renderBrands();           // គូរ Brand តាមរយៈ Loop
 });
 
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const chatToggleBtn = document.getElementById('chatToggleBtn');
     const chatBox = document.getElementById('chatBox');
@@ -884,15 +886,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const chatInput = document.getElementById('chatInput');
     const chatBody = document.getElementById('chatBody');
 
-    const BOT_TOKEN = '8884657050:AAGq7RcLhCnCjcFKcdGWG1_hXET3eRrK_vo';
-    const CHAT_ID = '1094421804';
+    const BOT_TOKEN = '8884657050:AAGq7RcLhCnCjcFKcdGWG1_hXET3eRrK_vo'; 
+    const CHAT_ID = '1094421804';  
 
     let lastUpdateId = 0;
     let isInitialized = false;
     let isFetching = false;
     let userName = "";
 
-    // ១. ពិនិត្យមើលថាតើធ្លាប់មានឈ្មោះរក្សាទុកក្នុង localStorage ស្រាប់ឬទេ
     const savedUserName = localStorage.getItem('savann_user_name');
     if (savedUserName) {
         userName = savedUserName;
@@ -902,7 +903,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('chatFooter').classList.remove('d-none');
     }
 
-    // បើក/បិទប្រអប់ Chat
     chatToggleBtn.addEventListener('click', function () {
         chatBox.classList.toggle('d-none');
     });
@@ -911,7 +911,6 @@ document.addEventListener('DOMContentLoaded', function () {
         chatBox.classList.add('d-none');
     });
 
-    // ២. ពេល User វាយឈ្មោះក្នុង Form ហើយចុច "យល់ព្រម"
     document.getElementById('nameForm').addEventListener('submit', function (e) {
         e.preventDefault();
         const inputVal = document.getElementById('userNameInput').value.trim();
@@ -927,7 +926,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ៣. អតិថិជនផ្ញើសារ (ភ្ជាប់ជាមួយ ឈ្មោះពិត)
     chatForm.addEventListener('submit', function (e) {
         e.preventDefault();
         const userText = chatInput.value.trim();
@@ -936,7 +934,6 @@ document.addEventListener('DOMContentLoaded', function () {
         appendMessage(userText, 'user');
         chatInput.value = '';
 
-        // ផ្ញើសារទៅកាន់ Telegram Group ជាមួយ [ឈ្មោះ User]
         const messageText = `👤 [${userName}]: ${userText}`;
         const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
@@ -950,52 +947,59 @@ document.addEventListener('DOMContentLoaded', function () {
         }).catch(error => console.error('Send Error:', error));
     });
 
-    // ៤. ទាញយកសារឆ្លើយតបមកវិញពី Admin
-    function fetchTelegramUpdates() {
+    // ទាញយកសារឆ្លើយតបពី Admin ដោយមានប្រព័ន្ធការពារ Conflict
+    // ទាញយកសារឆ្លើយតបពី Admin ដោយបត់បែនជាងមុន
+    async function fetchTelegramUpdates() {
         if (isFetching || !userName) return;
         isFetching = true;
 
-        const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=${lastUpdateId + 1}&timeout=5`;
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=${lastUpdateId + 1}&timeout=3`;
 
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                isFetching = false;
-                if (data.ok && data.result.length > 0) {
-                    data.result.forEach(update => {
-                        lastUpdateId = update.update_id;
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
 
-                        if (!isInitialized) {
-                            return;
-                        }
+            if (data.ok && data.result.length > 0) {
+                data.result.forEach(update => {
+                    lastUpdateId = update.update_id;
 
-                        if (update.message && update.message.chat.id.toString() === CHAT_ID.toString()) {
-                            if (update.message.from.is_bot) return;
+                    if (!isInitialized) {
+                        return;
+                    }
 
-                            const messageText = update.message.text;
-                            if (messageText) {
-                                // ប្រសិនបើជាសារចេញពី User ផ្ទាល់ មិនបាច់បង្ហាញឡើងវិញទេ
-                                if (messageText.includes(']:')) {
-                                    return;
+                    if (update.message && update.message.chat.id.toString() === CHAT_ID.toString()) {
+                        if (update.message.from.is_bot) return;
+
+                        const messageText = update.message.text;
+                        if (messageText) {
+                            // បើទោះបីជា Admin មិនបាន Reply ផ្ទាល់ ប៉ុន្តែប្រសិនបើមានសរសេរឈ្មោះ User នេះក្នុងសារ វានឹងលោតចូលភ្លាម
+                            if (messageText.includes(`[${userName}]`) || messageText.includes(userName)) {
+                                const cleanAdminMsg = messageText.replace(/\[.*?\]/g, '').replace(userName, '').replace(':', '').trim();
+                                appendMessage(cleanAdminMsg || messageText, 'bot');
+                            }
+                            // ឬប្រសិនបើ Admin បាន Reply ចំសាររបស់ User នេះ
+                            else if (update.message.reply_to_message) {
+                                const repliedText = update.message.reply_to_message.text;
+                                if (repliedText && repliedText.includes(userName)) {
+                                    appendMessage(messageText, 'bot');
                                 }
-
-                                // ពេល Admin ឆ្លើយតបក្នុង Telegram វានឹងលោតចូល Chat របស់ User នេះ
-                                appendMessage(messageText, 'bot');
                             }
                         }
-                    });
-                    isInitialized = true;
-                } else if (!isInitialized) {
-                    isInitialized = true;
-                }
-            })
-            .catch(error => {
-                isFetching = false;
-                console.error('Polling Error:', error);
-            });
+                    }
+                });
+                isInitialized = true;
+            } else if (!isInitialized) {
+                isInitialized = true;
+            }
+        } catch (error) {
+            console.warn('Polling waiting or conflict handled.');
+        } finally {
+            isFetching = false;
+        }
     }
 
-    setInterval(fetchTelegramUpdates, 3000);
+    // ឆែកមើលសារឆ្លើយតបរៀងរាល់ ៤ វិនាទីម្ដង
+    setInterval(fetchTelegramUpdates, 4000);
 
     function appendMessage(text, sender) {
         const cleanText = text.replace(/👤\s*\[.*?\]:\s*/, '').trim();
@@ -1005,17 +1009,17 @@ document.addEventListener('DOMContentLoaded', function () {
         if (sender === 'user') {
             messageDiv.classList.add('justify-content-end');
             messageDiv.innerHTML = `
-                    <div class="bg-primary text-white p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
-                        ${cleanText}
-                    </div>
-                `;
+                <div class="bg-primary text-white p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
+                    ${cleanText}
+                </div>
+            `;
         } else {
             messageDiv.classList.add('justify-content-start');
             messageDiv.innerHTML = `
-                    <div class="bg-white text-dark p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
-                        ${cleanText}
-                    </div>
-                `;
+                <div class="bg-white text-dark p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
+                    ${cleanText}
+                </div>
+            `;
         }
 
         chatBody.appendChild(messageDiv);
