@@ -947,19 +947,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }).catch(error => console.error('Send Error:', error));
     });
 
-    // ទាញយកសារឆ្លើយតបពី Admin ដោយមានប្រព័ន្ធការពារ Conflict
-    let channel = new BroadcastChannel('telegram_chat_channel');
-    let isMasterTab = false;
+    
 
-    // ពិនិត្យមើលថាតើ Tab នេះជា Tab មេ (Master) ដែរឬទេ
-    // ដើម្បីធានាថាមានតែ Tab មួយគត់ដែលហៅ getUpdates ទៅ Telegram API
-    navigator.locks.request('telegram_polling_lock', { ifAvailable: true }, async lock => {
-        if (lock) {
-            isMasterTab = true;
-            // Tab នេះជា Tab មេ ធ្វើការឆែក Telegram រៀងរាល់ ៤ វិនាទី
-            setInterval(fetchTelegramUpdates, 4000);
-        }
-    });
+    let channel = new BroadcastChannel('telegram_chat_channel');
 
     // ទទួលសារពី Tab មេ មកបង្ហាញលើ Tab ផ្សេងទៀត
     channel.onmessage = function (event) {
@@ -968,9 +958,34 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    // ទាញយកសារឆ្លើយតបពី Admin (មានតែ Tab មេទេដែលរត់មុខងារនេះ)
+    // ពិនិត្យ និងគ្រប់គ្រង Tab មេ (Master Tab) តាមរយៈ localStorage យ៉ាងសុវត្ថិភាព
+    function checkAndRunPolling() {
+        const now = Date.now();
+        const masterTabId = localStorage.getItem('telegram_master_tab');
+        const lastHeartbeat = localStorage.getItem('telegram_master_heartbeat');
+
+        // ប្រសិនបើគ្មាន Master Tab ឬ Master Tab ដើមបានងាប់/បិទលើសពី ៦ វិនាទី
+        if (!masterTabId || !lastHeartbeat || (now - parseInt(lastHeartbeat) > 6000)) {
+            localStorage.setItem('telegram_master_tab', currentTabId);
+            localStorage.setItem('telegram_master_heartbeat', now.toString());
+        }
+
+        // ប្រសិនបើ Tab នេះជា Master Tab ធ្វើការផ្ដល់សញ្ញា (Heartbeat) និងហៅ fetchTelegramUpdates
+        if (localStorage.getItem('telegram_master_tab') === currentTabId) {
+            localStorage.setItem('telegram_master_heartbeat', now.toString());
+            fetchTelegramUpdates();
+        }
+    }
+
+    // បង្កើត ID ផ្ទាល់ខ្លួនសម្រាប់ Tab នីមួយៗ
+    const currentTabId = Math.random().toString();
+
+    // រៀងរាល់ ៤ វិនាទី ឱ្យប្រព័ន្ធឆែកមើលថា Tab ណាជា Master Tab ដើម្បីហៅ API
+    setInterval(checkAndRunPolling, 4000);
+
+    // ទាញយកសារឆ្លើយតបពី Telegram API (មានតែ Tab មេទេដែលដំណើរការរឿងនេះ)
     async function fetchTelegramUpdates() {
-        if (isFetching || !userName || !isMasterTab) return;
+        if (isFetching || !userName) return;
         isFetching = true;
 
         const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=${lastUpdateId + 1}&timeout=3`;
@@ -993,7 +1008,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (update.message.reply_to_message) {
                                 const repliedText = update.message.reply_to_message.text;
                                 if (repliedText && repliedText.includes(userName)) {
-                                    // បង្ហាញក្នុង Tab នេះ និងផ្ញើសញ្ញាប្រាប់ Tab ផ្សេងទៀត
+                                    // បង្ហាញក្នុង Tab នេះ និងបញ្ជូនតរទៅ Tab ផ្សេងទៀតតាម BroadcastChannel
                                     appendMessage(messageText, 'bot');
                                     channel.postMessage({ type: 'NEW_ADMIN_MESSAGE', text: messageText });
                                 }
@@ -1006,14 +1021,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 isInitialized = true;
             }
         } catch (error) {
-            // រំលង Error 409 
+            // ទប់ស្កាត់ការបង្ហាញ Error 409 លើ Console
         } finally {
             isFetching = false;
         }
     }
 
-    // ឆែកមើលសារឆ្លើយតបរៀងរាល់ ៤ វិនាទីម្ដង
-    setInterval(fetchTelegramUpdates, 4000);
     // រចនាប័ទ្មបង្ហាញសារទាំងសងខាងស្អាត
     function appendMessage(text, sender) {
         const cleanText = text.replace(/👤\s*\[.*?\]:\s*/, '').trim();
