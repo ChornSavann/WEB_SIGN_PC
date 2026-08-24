@@ -491,6 +491,52 @@
             </div>
         </div>
     </section>
+    <!-- Chatbot Floating Button & Window -->
+<div class="position-fixed bottom-0 end-0 m-4" style="z-index: 1080;">
+    <!-- Chat Toggle Button -->
+    <button id="chatToggleBtn" class="btn btn-primary rounded-circle shadow-lg d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+        <i id="chatIcon" class="bi bi-chat-dots-fill fs-4"></i>
+    </button>
+
+    <!-- Chat Box Window -->
+    <div id="chatBox" class="card shadow-lg border-0 rounded-4 d-none position-absolute bottom-0 end-0 mb-5" style="width: 350px; height: 450px; overflow: hidden;">
+        <!-- Chat Header -->
+        <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between p-3">
+            <div class="d-flex align-items-center">
+                <div class="bg-white text-primary rounded-circle p-1 me-2 d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
+                    <i class="bi bi-robot fs-5"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0 fw-bold">Savann Support</h6>
+                    <small class="text-white-50" style="font-size: 0.75rem;">កំពុងអនឡាញ 🟢</small>
+                </div>
+            </div>
+            <button id="chatCloseBtn" class="btn btn-sm text-white shadow-none">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <!-- Chat Body / Messages -->
+        <div id="chatBody" class="card-body bg-light overflow-auto p-3" style="height: 310px;">
+            <div class="d-flex mb-3">
+                <div class="bg-white text-dark p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
+                    សួស្តី! សូមស្វាគមន៍មកកាន់ <b>Savann PC</b>។ តើខ្ញុំអាចជួយអ្វីដល់អ្នកថ្ងៃនេះ?
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Footer / Input -->
+        <div class="card-footer bg-white border-0 p-2">
+            <form id="chatForm" class="input-group">
+                <input type="text" id="chatInput" class="form-control bg-light border-0 rounded-pill px-3" placeholder="សរសេរសាររបស់អ្នក..." required style="box-shadow: none;">
+                <button type="submit" class="btn btn-primary rounded-circle ms-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                    <i class="bi bi-send-fill fs-6"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
     <div class="top-marquee-bar bg-primary text-white py-2">
         <div class="marquee-content d-flex align-items-center">
             <span>🎉 មហាប្រូម៉ូសិនពិសេស! បញ្ចុះតម្លៃរហូតដល់ 30% លើគ្រឿងបន្លាស់កុំព្យូទ័រគ្រប់ប្រភេទ និងដឹកជញ្ជូនឥតគិតថ្លៃក្នុងភ្នំពេញ! 🚚 </span>
@@ -966,6 +1012,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../../JS/index.js"></script>
+    
 </body>
 
 </html>

@@ -876,3 +876,118 @@ document.addEventListener("DOMContentLoaded", function () {
     renderBrands();           // គូរ Brand តាមរយៈ Loop
 });
 
+
+document.addEventListener('DOMContentLoaded', function () {
+    const chatToggleBtn = document.getElementById('chatToggleBtn');
+    const chatBox = document.getElementById('chatBox');
+    const chatCloseBtn = document.getElementById('chatCloseBtn');
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatBody = document.getElementById('chatBody');
+
+     const BOT_TOKEN = '8884657050:AAGq7RcLhCnCjcFKcdGWG1_hXET3eRrK_vo'; 
+    const CHAT_ID = '1094421804';  
+    
+    let lastUpdateId = 0;
+    let isInitialized = false;
+    let isFetching = false; // ទប់ស្កាត់ការហៅซ้ำក្នុងពេលដំណាលគ្នា
+
+    chatToggleBtn.addEventListener('click', function () {
+        chatBox.classList.toggle('d-none');
+    });
+
+    chatCloseBtn.addEventListener('click', function () {
+        chatBox.classList.add('d-none');
+    });
+
+    // ១. អតិថិជនផ្ញើសារពី Website ទៅ Telegram Group
+    chatForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const userText = chatInput.value.trim();
+        if (!userText) return;
+
+        appendMessage(userText, 'user');
+        chatInput.value = '';
+
+        const messageText = `[Savann]: ${userText}`;
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: messageText
+            })
+        }).catch(error => console.error('Send Error:', error));
+    });
+
+    // ២. ទាញយកសារឆ្លើយតបពី Telegram Group មកបង្ហាញលើ Website ដោយមានប្រព័ន្ធការពារ Conflict
+    function fetchTelegramUpdates() {
+        if (isFetching) return; // ប្រសិនបើកំពុងដំណើរការ មិនបាច់ហៅซ้ำទេ
+        isFetching = true;
+
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=${lastUpdateId + 1}&timeout=5`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                isFetching = false;
+                if (data.ok && data.result.length > 0) {
+                    data.result.forEach(update => {
+                        lastUpdateId = update.update_id;
+
+                        if (!isInitialized) {
+                            return; 
+                        }
+
+                        if (update.message && update.message.chat.id.toString() === CHAT_ID.toString()) {
+                            if (update.message.from.is_bot) return;
+
+                            const messageText = update.message.text;
+                            if (messageText) {
+                                if (messageText.startsWith('[Savann]:')) {
+                                    return; 
+                                }
+                                appendMessage(messageText, 'bot');
+                            }
+                        }
+                    });
+                    isInitialized = true;
+                } else if (!isInitialized) {
+                    isInitialized = true;
+                }
+            })
+            .catch(error => {
+                isFetching = false;
+                console.error('Polling Error:', error);
+            });
+    }
+
+    // ឆែកមើលសារឆ្លើយតបរៀងរាល់ ៣ វិនាទីម្ដង
+    setInterval(fetchTelegramUpdates, 3000);
+
+    function appendMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('d-flex', 'mb-3');
+
+        if (sender === 'user') {
+            messageDiv.classList.add('justify-content-end');
+            messageDiv.innerHTML = `
+                <div class="bg-primary text-white p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
+                    ${text}
+                </div>
+            `;
+        } else {
+            messageDiv.classList.add('justify-content-start');
+            messageDiv.innerHTML = `
+                <div class="bg-white text-dark p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
+                    ${text}
+                </div>
+            `;
+        }
+
+        chatBody.appendChild(messageDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+});
