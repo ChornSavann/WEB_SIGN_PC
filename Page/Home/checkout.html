@@ -590,10 +590,11 @@ function applyCoupon() {
           localStorage.setItem("pastOrders", JSON.stringify(pastOrders));
 
           alert(
-            "🎉 Order Successful! Thank you for purchasing from NexGen PC.",
+            "🎉 Order Successful! Thank you for purchasing from Savann PC.",
           );
           localStorage.removeItem("checkoutCart"); // លុប Cart ចេញ
           window.location.href = "index.html";
+          // window.location.href = "http://35.174.15.35:9090/";
         } else {
           form.reportValidity();
         }
