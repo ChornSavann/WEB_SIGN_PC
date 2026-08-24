@@ -3,11 +3,11 @@
 // ==========================================
 // ១. ទិន្នន័យផលិតផលទាំង ១០ (Products Array)
 // ==========================================
- AOS.init({
-            duration: 800, // ល្បឿនចលនា
-            offset: 120,   // ចម្ងាយគិតពីបាតអេក្រង់
-            once: true     // បញ្ចេញចលនាតែម្ដងគត់ (មិនបញ្ចេញឡើងវិញពេល scroll ឡើងលើ)
-        });
+AOS.init({
+    duration: 800, // ល្បឿនចលនា
+    offset: 120,   // ចម្ងាយគិតពីបាតអេក្រង់
+    once: true     // បញ្ចេញចលនាតែម្ដងគត់ (មិនបញ្ចេញឡើងវិញពេល scroll ឡើងលើ)
+});
 const products = [
     { id: 1, name: "Apex Raptor Gaming PC", brand: "MSI", category: "Pre-Built Rigs", price: 1899, specs: "RTX 4070 Ti, Ryzen 7, 32GB RAM", img: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=400" },
     { id: 2, name: "Ultra-Wide 4K Monitor", brand: "Asus", category: "Monitors", price: 450, specs: "34-Inch, 144Hz, Curved Display", img: "https://images.unsplash.com/photo-1547082299-de196ea013d6?w=400" },
@@ -45,10 +45,10 @@ function renderProducts() {
     const container = document.getElementById('product-container');
     if (!container) return;
 
-    container.innerHTML = ""; 
+    container.innerHTML = "";
 
     products.forEach((product, index) => {
-        const delay = (index % 4) * 100; 
+        const delay = (index % 4) * 100;
 
         // ទំហំ col-6 លើ Mobile និង col-xl-3 លើ Desktop
         container.innerHTML += `
@@ -91,7 +91,7 @@ function renderProduct(productList) { // 📥 ត្រូវប្រាកដ�
     if (!container) return;
 
     // ១. សម្អាតកាតចាស់ៗចេញសិនជានិច្ច
-    container.innerHTML = ""; 
+    container.innerHTML = "";
 
     // ២. ឆែកមើលថាតើមានទំនិញក្នុង List ដែលបានបញ្ជូនមកដែរឬទេ
     if (!productList || productList.length === 0) {
@@ -157,23 +157,23 @@ function openQuickView(productId) {
         document.getElementById('modalCategory').innerText = product.category;
         document.getElementById('modalPrice').innerText = `$${product.price.toFixed(2)}`; // បន្ថែម .toFixed(2) ដើម្បីឱ្យចេញក្បៀសស្អាត
         document.getElementById('modalSpecs').innerText = product.specs || "មិនមានការបញ្ជាក់លម្អិតទេ (No specs available).";
-        
+
         // Reset ចំនួនទំនិញឱ្យស្មើ ១ ជានិច្ចពេលបើកដំបូង
         document.getElementById('modalQty').value = 1;
 
         // ចាប់យកប៊ូតុង Add to Cart
         const addBtn = document.getElementById('modalAddToCartBtn');
-        
+
         // ✅ ប្រើ onclick ជំនួស addEventListener ដើម្បីជៀសវាងការបូកបញ្ចូល Event ច្រើនដង (Memory Leak)
-        addBtn.onclick = function() {
+        addBtn.onclick = function () {
             const qty = parseInt(document.getElementById('modalQty').value);
-            
+
             // បញ្ជូន ID និង ចំនួនទៅកាន់ Function Add to Cart ធំរបស់បង
-            addToCart(productId, qty); 
-            
+            addToCart(productId, qty);
+
             // បិទ Modal បន្ទាប់ពីទិញរួច
             const modalElement = document.getElementById('productModal');
-            
+
             // ប្រើ getInstance ដើម្បីពិនិត្យមើលថាតើ Modal កំពុងបើកមែនទេ បើបើកទើបបិទ (ការពារ Error)
             let modalInstance = bootstrap.Modal.getInstance(modalElement);
             if (!modalInstance) {
@@ -194,13 +194,13 @@ function openQuickView(productId) {
 function changeQty(amount) {
     const qtyInput = document.getElementById('modalQty');
     let currentQty = parseInt(qtyInput.value);
-    
+
     // បើបំពេញលេខផ្សេងដែលមិនមែនជាលេខ (NaN) ឱ្យស្មើ ១
     if (isNaN(currentQty)) currentQty = 1;
 
     currentQty += amount;
-    
-    if (currentQty < 1) currentQty = 1; 
+
+    if (currentQty < 1) currentQty = 1;
     qtyInput.value = currentQty;
 }
 
@@ -233,7 +233,7 @@ function renderCart() {
     const cartList = document.getElementById("cartItemsList");
     if (!cartList) return;
 
-    cartList.innerHTML = ""; 
+    cartList.innerHTML = "";
 
     if (cart.length === 0) {
         cartList.innerHTML = `
@@ -310,7 +310,7 @@ function removeFromCart(productId) {
 function updateCartBadge() {
     const badge = document.getElementById("cartCount");
     if (badge) {
-        badge.innerText = cart.length; 
+        badge.innerText = cart.length;
     }
 }
 
@@ -327,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const contactForm = document.getElementById("contactForm");
     if (contactForm) {
         contactForm.addEventListener("submit", function (e) {
-            e.preventDefault(); 
+            e.preventDefault();
 
             const name = document.getElementById("userName").value;
             const subject = document.getElementById("subject").value;
@@ -336,7 +336,7 @@ document.addEventListener("DOMContentLoaded", function () {
             contactForm.reset();
         });
     }
-    
+
 });
 
 // មុខងាររក្សាទុកទិន្នន័យ Cart ចូលទៅក្នុង Browser មុនពេលទៅ Checkout
@@ -347,7 +347,7 @@ function saveCartAndCheckout() {
     }
     // រក្សាទុក Array ទំនិញក្នុង localStorage ក្រោមឈ្មោះ 'checkoutCart'
     localStorage.setItem('checkoutCart', JSON.stringify(cart));
-    
+
     // បញ្ជូនទៅកាន់ទំព័រ checkout.html
     window.location.href = "checkout.html";
 }
@@ -433,7 +433,7 @@ function renderCategories() {
 
     uniqueCategories.forEach((cat, index) => {
         const delay = (index + 1) * 100;
-        
+
         // ទាញយក Icon តាម Setting បើអត់មានគឺទាញយក Icon ផ្សេង (Default)
         const settings = categorySettings[cat] || { icon: "bi-box-seam", subtext: "Hardware" };
 
@@ -610,7 +610,7 @@ function openDynamicOrderDetails(orderIndex) {
 }
 
 // ៣. កុំភ្លេចហៅវាឱ្យរត់នៅពេលបើក Modal ឡើង
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const ordersModalEl = document.getElementById('ordersModal');
     if (ordersModalEl) {
         ordersModalEl.addEventListener('shown.bs.modal', renderOrderHistory);
@@ -640,7 +640,7 @@ function toggleAuth(type) {
 // មុខងារបើក Modal ពេលចុចពី Menu Navbar
 function simulateLogin() {
     toggleAuth('login'); // ឱ្យវាបង្ហាញផ្ទាំង Login មុនគេជានិច្ច
-    
+
     const authModalEl = document.getElementById('authModal');
     if (authModalEl) {
         const authModal = new bootstrap.Modal(authModalEl);
@@ -650,7 +650,7 @@ function simulateLogin() {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    
+
     // ==========================================
     // 📤 ១. មុខងារចុះឈ្មោះគណនីថ្មី (Register)
     // ==========================================
@@ -695,7 +695,7 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem('registeredUsers', JSON.stringify(users));
 
             alert(`🎉 ចុះឈ្មោះជោគជ័យ! សូមស្វាគមន៍បង ${lastName} ${firstName}។`);
-            
+
             registerForm.reset(); // សម្អាត Form
             toggleAuth('login');  // ប្ដូរទៅផ្ទាំង Login វិញដើម្បីឱ្យ User ចូលគណនី
         });
@@ -721,9 +721,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if (validUser) {
                 // រក្សាទុក Session ថាបាន Login រួចរាល់
                 localStorage.setItem('currentUser', JSON.stringify(validUser));
-                
+
                 alert(`👋 ស្វាគមន៍ត្រឡប់មកវិញ បង ${validUser.lastName} ${validUser.firstName}!`);
-                
+
                 // បិទ Modal
                 const authModalEl = document.getElementById('authModal');
                 const modalInstance = bootstrap.Modal.getInstance(authModalEl);
@@ -751,12 +751,12 @@ document.addEventListener("DOMContentLoaded", function () {
             if (currentUser) {
                 // ១. បំពេញឈ្មោះធំខាងលើ
                 document.getElementById('profFullName').innerText = `${currentUser.lastName} ${currentUser.firstName}`;
-                
+
                 // ២. បំពេញតម្លៃចូល Inputs
                 document.getElementById('profLastName').value = currentUser.lastName || "";
                 document.getElementById('profFirstName').value = currentUser.firstName || "";
                 document.getElementById('profEmail').value = currentUser.email || "";
-                
+
                 // លេខទូរស័ព្ទ (បើអត់ទាន់មាន ទុកទទេ)
                 document.getElementById('profPhone').value = currentUser.phone || "";
             } else {
@@ -795,9 +795,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // 🔍 ៣. មុខងារស្វែងរកទំនិញ (Live Search Function)
 function liveSearch() {
     const input = document.getElementById('searchInput').value.trim().toLowerCase();
-    
-    const filtered = products.filter(p => 
-        p.name.toLowerCase().includes(input) || 
+
+    const filtered = products.filter(p =>
+        p.name.toLowerCase().includes(input) ||
         p.category.toLowerCase().includes(input)
     );
 
@@ -815,37 +815,37 @@ function renderBrands() {
     const uniqueBrands = [...new Set(products.map(product => product.brand))];
     // បង្កើត Object ដើម្បីដាក់ Icon និង ពណ៌ទៅតាមឈ្មោះម៉ាកនីមួយៗ
     const brandIcons = {
-    // --- 💻 Laptop & PC Brands ---
-    "Dell": { icon: "bi-laptop", color: "text-primary" },
-    "Asus": { icon: "bi-cpu", color: "text-danger" },
-    "Apple": { icon: "bi-apple", color: "text-dark" },
-    "MSI": { icon: "bi-gpu-card", color: "text-warning" },
-    "HP": { icon: "bi-pc-display", color: "text-dark" },
-    "Lenovo": { icon: "bi-motherboard", color: "text-secondary" },
-    "Gigabyte": { icon: "bi-circuit-board", color: "text-primary" },
+        // --- 💻 Laptop & PC Brands ---
+        "Dell": { icon: "bi-laptop", color: "text-primary" },
+        "Asus": { icon: "bi-cpu", color: "text-danger" },
+        "Apple": { icon: "bi-apple", color: "text-dark" },
+        "MSI": { icon: "bi-gpu-card", color: "text-warning" },
+        "HP": { icon: "bi-pc-display", color: "text-dark" },
+        "Lenovo": { icon: "bi-motherboard", color: "text-secondary" },
+        "Gigabyte": { icon: "bi-circuit-board", color: "text-primary" },
 
-    // --- 🎮 Gaming & Accessories ---
-    "Razer": { icon: "bi-controller", color: "text-success" },
-    "Logitech": { icon: "bi-mouse3", color: "text-info" },
-    "HyperX": { icon: "bi-headset", color: "text-danger" },
+        // --- 🎮 Gaming & Accessories ---
+        "Razer": { icon: "bi-controller", color: "text-success" },
+        "Logitech": { icon: "bi-mouse3", color: "text-info" },
+        "HyperX": { icon: "bi-headset", color: "text-danger" },
 
-    // --- 🌬️ Cooling & PC Cases ---
-    "Corsair": { icon: "bi-fan", color: "text-info" },
-    "Lian Li": { icon: "bi-box-seam", color: "text-secondary" },
+        // --- 🌬️ Cooling & PC Cases ---
+        "Corsair": { icon: "bi-fan", color: "text-info" },
+        "Lian Li": { icon: "bi-box-seam", color: "text-secondary" },
 
-    // --- 💾 Storage & RAM (អង្គចងចាំ) ---
-    "Samsung": { icon: "bi-phone", color: "text-primary" }, // ឬ bi-gpu-card
-    "Kingston": { icon: "bi-memory", color: "text-danger" },
-    "Crucial": { icon: "bi-sd-card", color: "text-primary" },
-    "WD": { icon: "bi-hdd-rack", color: "text-success" } // Western Digital
-};
+        // --- 💾 Storage & RAM (អង្គចងចាំ) ---
+        "Samsung": { icon: "bi-phone", color: "text-primary" }, // ឬ bi-gpu-card
+        "Kingston": { icon: "bi-memory", color: "text-danger" },
+        "Crucial": { icon: "bi-sd-card", color: "text-primary" },
+        "WD": { icon: "bi-hdd-rack", color: "text-success" } // Western Digital
+    };
 
     brandContainer.innerHTML = ""; // សម្អាតទិន្នន័យចាស់
 
     // 🔄 រត់ Loop ដើម្បីគូរ Brand នីមួយៗចេញមកក្រៅ
     uniqueBrands.forEach((brandName, index) => {
         const delay = (index + 1) * 100; // Animation delay
-        
+
         // បើម៉ាកនោះអត់ទាន់មាន Icon ក្នុង Object ខាងលើ ឱ្យ Icon Default (bi-tag)
         const brandInfo = brandIcons[brandName] || { icon: "bi-tag", color: "text-primary" };
 
@@ -865,7 +865,7 @@ function renderBrands() {
 function filterByBrand(brandName) {
     const filtered = products.filter(p => p.brand.toLowerCase() === brandName.toLowerCase());
     // ហៅ Function render Product របស់បងមកគូរឡើងវិញ
-    renderProduct(filtered); 
+    renderProduct(filtered);
     // Scroll ទៅកាន់ផ្នែក Product List
     document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
 }
@@ -876,7 +876,6 @@ document.addEventListener("DOMContentLoaded", function () {
     renderBrands();           // គូរ Brand តាមរយៈ Loop
 });
 
-
 document.addEventListener('DOMContentLoaded', function () {
     const chatToggleBtn = document.getElementById('chatToggleBtn');
     const chatBox = document.getElementById('chatBox');
@@ -885,13 +884,25 @@ document.addEventListener('DOMContentLoaded', function () {
     const chatInput = document.getElementById('chatInput');
     const chatBody = document.getElementById('chatBody');
 
-     const BOT_TOKEN = '8884657050:AAGq7RcLhCnCjcFKcdGWG1_hXET3eRrK_vo'; 
-    const CHAT_ID = '1094421804';  
-    
+    const BOT_TOKEN = '8884657050:AAGq7RcLhCnCjcFKcdGWG1_hXET3eRrK_vo';
+    const CHAT_ID = '1094421804';
+
     let lastUpdateId = 0;
     let isInitialized = false;
-    let isFetching = false; // ទប់ស្កាត់ការហៅซ้ำក្នុងពេលដំណាលគ្នា
+    let isFetching = false;
+    let userName = "";
 
+    // ១. ពិនិត្យមើលថាតើធ្លាប់មានឈ្មោះរក្សាទុកក្នុង localStorage ស្រាប់ឬទេ
+    const savedUserName = localStorage.getItem('savann_user_name');
+    if (savedUserName) {
+        userName = savedUserName;
+        document.getElementById('displayUserName').innerText = userName;
+        document.getElementById('namePromptContainer').style.display = 'none';
+        document.getElementById('welcomeMessageContainer').classList.remove('d-none');
+        document.getElementById('chatFooter').classList.remove('d-none');
+    }
+
+    // បើក/បិទប្រអប់ Chat
     chatToggleBtn.addEventListener('click', function () {
         chatBox.classList.toggle('d-none');
     });
@@ -900,7 +911,23 @@ document.addEventListener('DOMContentLoaded', function () {
         chatBox.classList.add('d-none');
     });
 
-    // ១. អតិថិជនផ្ញើសារពី Website ទៅ Telegram Group
+    // ២. ពេល User វាយឈ្មោះក្នុង Form ហើយចុច "យល់ព្រម"
+    document.getElementById('nameForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const inputVal = document.getElementById('userNameInput').value.trim();
+
+        if (inputVal !== "") {
+            userName = inputVal;
+            localStorage.setItem('savann_user_name', userName);
+
+            document.getElementById('displayUserName').innerText = userName;
+            document.getElementById('namePromptContainer').style.display = 'none';
+            document.getElementById('welcomeMessageContainer').classList.remove('d-none');
+            document.getElementById('chatFooter').classList.remove('d-none');
+        }
+    });
+
+    // ៣. អតិថិជនផ្ញើសារ (ភ្ជាប់ជាមួយ ឈ្មោះពិត)
     chatForm.addEventListener('submit', function (e) {
         e.preventDefault();
         const userText = chatInput.value.trim();
@@ -909,7 +936,8 @@ document.addEventListener('DOMContentLoaded', function () {
         appendMessage(userText, 'user');
         chatInput.value = '';
 
-        const messageText = `[Savann]: ${userText}`;
+        // ផ្ញើសារទៅកាន់ Telegram Group ជាមួយ [ឈ្មោះ User]
+        const messageText = `👤 [${userName}]: ${userText}`;
         const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
         fetch(url, {
@@ -922,9 +950,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }).catch(error => console.error('Send Error:', error));
     });
 
-    // ២. ទាញយកសារឆ្លើយតបពី Telegram Group មកបង្ហាញលើ Website ដោយមានប្រព័ន្ធការពារ Conflict
+    // ៤. ទាញយកសារឆ្លើយតបមកវិញពី Admin
     function fetchTelegramUpdates() {
-        if (isFetching) return; // ប្រសិនបើកំពុងដំណើរការ មិនបាច់ហៅซ้ำទេ
+        if (isFetching || !userName) return;
         isFetching = true;
 
         const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=${lastUpdateId + 1}&timeout=5`;
@@ -938,7 +966,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         lastUpdateId = update.update_id;
 
                         if (!isInitialized) {
-                            return; 
+                            return;
                         }
 
                         if (update.message && update.message.chat.id.toString() === CHAT_ID.toString()) {
@@ -946,9 +974,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                             const messageText = update.message.text;
                             if (messageText) {
-                                if (messageText.startsWith('[Savann]:')) {
-                                    return; 
+                                // ប្រសិនបើជាសារចេញពី User ផ្ទាល់ មិនបាច់បង្ហាញឡើងវិញទេ
+                                if (messageText.includes(']:')) {
+                                    return;
                                 }
+
+                                // ពេល Admin ឆ្លើយតបក្នុង Telegram វានឹងលោតចូល Chat របស់ User នេះ
                                 appendMessage(messageText, 'bot');
                             }
                         }
@@ -964,27 +995,27 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // ឆែកមើលសារឆ្លើយតបរៀងរាល់ ៣ វិនាទីម្ដង
     setInterval(fetchTelegramUpdates, 3000);
 
     function appendMessage(text, sender) {
+        const cleanText = text.replace(/👤\s*\[.*?\]:\s*/, '').trim();
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('d-flex', 'mb-3');
 
         if (sender === 'user') {
             messageDiv.classList.add('justify-content-end');
             messageDiv.innerHTML = `
-                <div class="bg-primary text-white p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
-                    ${text}
-                </div>
-            `;
+                    <div class="bg-primary text-white p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
+                        ${cleanText}
+                    </div>
+                `;
         } else {
             messageDiv.classList.add('justify-content-start');
             messageDiv.innerHTML = `
-                <div class="bg-white text-dark p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
-                    ${text}
-                </div>
-            `;
+                    <div class="bg-white text-dark p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
+                        ${cleanText}
+                    </div>
+                `;
         }
 
         chatBody.appendChild(messageDiv);

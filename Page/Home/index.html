@@ -492,6 +492,7 @@
         </div>
     </section>
     <!-- Chatbot Floating Button & Window -->
+<!-- Chatbot Floating Button & Window -->
 <div class="position-fixed bottom-0 end-0 m-4" style="z-index: 1080;">
     <!-- Chat Toggle Button -->
     <button id="chatToggleBtn" class="btn btn-primary rounded-circle shadow-lg d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
@@ -518,15 +519,27 @@
 
         <!-- Chat Body / Messages -->
         <div id="chatBody" class="card-body bg-light overflow-auto p-3" style="height: 310px;">
-            <div class="d-flex mb-3">
+            <!-- Step 1: Name Request Form (បង្ហាញពេលដំបូង) -->
+            <div id="namePromptContainer" class="mb-3">
+                <div class="bg-white text-dark p-3 rounded-4 shadow-sm small mb-2">
+                    សួស្តី! សូមបញ្ចូលឈ្មោះរបស់អ្នកមុននឹងចាប់ផ្តើមសន្ទនា៖
+                </div>
+                <form id="nameForm" class="d-flex gap-2">
+                    <input type="text" id="userNameInput" class="form-control form-control-sm rounded-pill px-3" placeholder="ឈ្មោះរបស់អ្នក..." required>
+                    <button type="submit" class="btn btn-primary btn-sm rounded-pill px-3">យល់ព្រម</button>
+                </form>
+            </div>
+
+            <!-- Welcoming Message (លាក់ទុកមុនសិន រហូតទាល់តែ User វាយឈ្មោះរួច) -->
+            <div id="welcomeMessageContainer" class="d-flex mb-3 d-none">
                 <div class="bg-white text-dark p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
-                    សួស្តី! សូមស្វាគមន៍មកកាន់ <b>Savann PC</b>។ តើខ្ញុំអាចជួយអ្វីដល់អ្នកថ្ងៃនេះ?
+                    សួស្តី <span id="displayUserName" class="fw-bold text-primary"></span>! សូមស្វាគមន៍មកកាន់ <b>Savann PC</b>។ តើខ្ញុំអាចជួយអ្វីដល់អ្នកថ្ងៃនេះ?
                 </div>
             </div>
         </div>
 
-        <!-- Chat Footer / Input -->
-        <div class="card-footer bg-white border-0 p-2">
+        <!-- Chat Footer / Input (លាក់ទុកមុនសិន រហូតទាល់តែ User វាយឈ្មោះរួច) -->
+        <div id="chatFooter" class="card-footer bg-white border-0 p-2 d-none">
             <form id="chatForm" class="input-group">
                 <input type="text" id="chatInput" class="form-control bg-light border-0 rounded-pill px-3" placeholder="សរសេរសាររបស់អ្នក..." required style="box-shadow: none;">
                 <button type="submit" class="btn btn-primary rounded-circle ms-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
@@ -536,6 +549,7 @@
         </div>
     </div>
 </div>
+
 
     <div class="top-marquee-bar bg-primary text-white py-2">
         <div class="marquee-content d-flex align-items-center">
