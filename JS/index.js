@@ -948,12 +948,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ទាញយកសារឆ្លើយតបពី Admin ដោយមានប្រព័ន្ធការពារ Conflict
-    // ទាញយកសារឆ្លើយតបពី Admin (តាមរយៈការ Reply ចំសារ User នោះ)
+    // ទាញយកសារឆ្លើយតបពី Admin ដោយកំណត់គម្លាតពេលយូរជាងមុន និងសុវត្ថិភាព
     async function fetchTelegramUpdates() {
         if (isFetching || !userName) return;
         isFetching = true;
 
-        const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=${lastUpdateId + 1}&timeout=3`;
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=${lastUpdateId + 1}&timeout=5`;
 
         try {
             const response = await fetch(url);
@@ -972,10 +972,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         const messageText = update.message.text;
                         if (messageText) {
-                            // ពិនិត្យមើលថាតើ Admin បាន Reply ចំសារដែលមានឈ្មោះ User នេះដែរឬទេ
                             if (update.message.reply_to_message) {
                                 const repliedText = update.message.reply_to_message.text;
-                                // ប្រសិនបើសារដើមដែលត្រូវបាន Reply នោះមានឈ្មោះ User នេះ វានឹងទម្លាក់សារចូល Chat ភ្លាម
                                 if (repliedText && repliedText.includes(userName)) {
                                     appendMessage(messageText, 'bot');
                                 }
@@ -988,11 +986,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 isInitialized = true;
             }
         } catch (error) {
-            console.warn('Polling waiting or conflict handled.');
+            // បញ្ឈប់ការបញ្ចេញ Error 409 រញ៉េរញ៉ៃលើ Console
         } finally {
             isFetching = false;
         }
     }
+
+    // បន្ថែមគម្លាតពេលរៀងរាល់ ៦ វិនាទីម្ដង (ដើម្បីកុំឱ្យ Telegram API បដិសេធសំណើ 409 Conflict)
+    setInterval(fetchTelegramUpdates, 6000);
 
     // ឆែកមើលសារឆ្លើយតបរៀងរាល់ ៤ វិនាទីម្ដង
     setInterval(fetchTelegramUpdates, 4000);
