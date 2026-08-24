@@ -886,8 +886,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const chatInput = document.getElementById('chatInput');
     const chatBody = document.getElementById('chatBody');
 
-    const BOT_TOKEN = '8884657050:AAGq7RcLhCnCjcFKcdGWG1_hXET3eRrK_vo'; 
-    const CHAT_ID = '1094421804';  
+    const BOT_TOKEN = '8884657050:AAGq7RcLhCnCjcFKcdGWG1_hXET3eRrK_vo';
+    const CHAT_ID = '1094421804';
 
     let lastUpdateId = 0;
     let isInitialized = false;
@@ -948,7 +948,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ទាញយកសារឆ្លើយតបពី Admin ដោយមានប្រព័ន្ធការពារ Conflict
-    // ទាញយកសារឆ្លើយតបពី Admin ដោយបត់បែនជាងមុន
+    // ទាញយកសារឆ្លើយតបពី Admin (តាមរយៈការ Reply ចំសារ User នោះ)
     async function fetchTelegramUpdates() {
         if (isFetching || !userName) return;
         isFetching = true;
@@ -972,14 +972,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         const messageText = update.message.text;
                         if (messageText) {
-                            // បើទោះបីជា Admin មិនបាន Reply ផ្ទាល់ ប៉ុន្តែប្រសិនបើមានសរសេរឈ្មោះ User នេះក្នុងសារ វានឹងលោតចូលភ្លាម
-                            if (messageText.includes(`[${userName}]`) || messageText.includes(userName)) {
-                                const cleanAdminMsg = messageText.replace(/\[.*?\]/g, '').replace(userName, '').replace(':', '').trim();
-                                appendMessage(cleanAdminMsg || messageText, 'bot');
-                            }
-                            // ឬប្រសិនបើ Admin បាន Reply ចំសាររបស់ User នេះ
-                            else if (update.message.reply_to_message) {
+                            // ពិនិត្យមើលថាតើ Admin បាន Reply ចំសារដែលមានឈ្មោះ User នេះដែរឬទេ
+                            if (update.message.reply_to_message) {
                                 const repliedText = update.message.reply_to_message.text;
+                                // ប្រសិនបើសារដើមដែលត្រូវបាន Reply នោះមានឈ្មោះ User នេះ វានឹងទម្លាក់សារចូល Chat ភ្លាម
                                 if (repliedText && repliedText.includes(userName)) {
                                     appendMessage(messageText, 'bot');
                                 }
@@ -1000,23 +996,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ឆែកមើលសារឆ្លើយតបរៀងរាល់ ៤ វិនាទីម្ដង
     setInterval(fetchTelegramUpdates, 4000);
-
+    // រចនាប័ទ្មបង្ហាញសារទាំងសងខាងស្អាត
     function appendMessage(text, sender) {
         const cleanText = text.replace(/👤\s*\[.*?\]:\s*/, '').trim();
         const messageDiv = document.createElement('div');
-        messageDiv.classList.add('d-flex', 'mb-3');
+        messageDiv.classList.add('d-flex', 'mb-3', 'w-100');
 
         if (sender === 'user') {
             messageDiv.classList.add('justify-content-end');
             messageDiv.innerHTML = `
-                <div class="bg-primary text-white p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
+                <div class="text-white px-3 py-2 shadow-sm position-relative" style="max-width: 75%; background: linear-gradient(135deg, #0d6efd, #0b5ed7); word-break: break-word; font-size: 0.9rem; border-radius: 18px 18px 4px 18px;">
                     ${cleanText}
                 </div>
             `;
         } else {
             messageDiv.classList.add('justify-content-start');
             messageDiv.innerHTML = `
-                <div class="bg-white text-dark p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
+                <div class="bg-white text-dark px-3 py-2 shadow-sm border position-relative" style="max-width: 75%; word-break: break-word; font-size: 0.9rem; border-radius: 18px 18px 18px 4px;">
+                    <div class="fw-bold text-primary mb-1" style="font-size: 0.75rem;"><i class="bi bi-robot me-1"></i> Savann Support</div>
                     ${cleanText}
                 </div>
             `;
@@ -1025,4 +1022,8 @@ document.addEventListener('DOMContentLoaded', function () {
         chatBody.appendChild(messageDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
     }
+
+    
+
+    
 });

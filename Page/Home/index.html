@@ -491,7 +491,7 @@
             </div>
         </div>
     </section>
-    <!-- Chatbot Floating Button & Window -->
+   
 <!-- Chatbot Floating Button & Window -->
 <div class="position-fixed bottom-0 end-0 m-4" style="z-index: 1080;">
     <!-- Chat Toggle Button -->
@@ -517,11 +517,12 @@
             </button>
         </div>
 
-        <!-- Chat Body / Messages -->
-        <div id="chatBody" class="card-body bg-light overflow-auto p-3" style="height: 310px;">
+        <!-- Chat Body / Messages with Background Image -->
+        <div id="chatBody" class="card-body overflow-auto p-3" 
+        style="height: 310px; background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://cdn.pixabay.com/photo/2017/04/10/12/18/chat-2218345_1280.jpg') no-repeat center center; background-size: cover;">
             <!-- Step 1: Name Request Form (បង្ហាញពេលដំបូង) -->
             <div id="namePromptContainer" class="mb-3">
-                <div class="bg-white text-dark p-3 rounded-4 shadow-sm small mb-2">
+                <div class="bg-white text-dark p-3 rounded-4 shadow-sm small mb-2 border">
                     សួស្តី! សូមបញ្ចូលឈ្មោះរបស់អ្នកមុននឹងចាប់ផ្តើមសន្ទនា៖
                 </div>
                 <form id="nameForm" class="d-flex gap-2">
@@ -532,7 +533,7 @@
 
             <!-- Welcoming Message (លាក់ទុកមុនសិន រហូតទាល់តែ User វាយឈ្មោះរួច) -->
             <div id="welcomeMessageContainer" class="d-flex mb-3 d-none">
-                <div class="bg-white text-dark p-3 rounded-4 shadow-sm small" style="max-width: 80%;">
+                <div class="bg-white text-dark p-3 rounded-4 shadow-sm small border" style="max-width: 80%;">
                     សួស្តី <span id="displayUserName" class="fw-bold text-primary"></span>! សូមស្វាគមន៍មកកាន់ <b>Savann PC</b>។ តើខ្ញុំអាចជួយអ្វីដល់អ្នកថ្ងៃនេះ?
                 </div>
             </div>
@@ -549,7 +550,6 @@
         </div>
     </div>
 </div>
-
 
     <div class="top-marquee-bar bg-primary text-white py-2">
         <div class="marquee-content d-flex align-items-center">
